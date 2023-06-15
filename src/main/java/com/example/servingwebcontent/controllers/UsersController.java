@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 @Controller
 public class UsersController {
@@ -23,11 +22,9 @@ public class UsersController {
         return "users";
     }
     @PostMapping("/users")
-    public String usersFind(@RequestParam(name = "email", required=false, defaultValue = "@") String email, Model model){
-        User user = userService.findUserByEmail(email);
-        List<User> users = new ArrayList<>();
-        users.add(user);
-        model.addAttribute("users", users);
+    public String usersFind(@RequestParam(name = "email", required=false) String email, Model model){
+        User user = userService.findAllUsers().stream().filter(user1 -> user1.getEmail().equals(email)).findAny().orElse(null);
+        model.addAttribute("users", user);
         return "users";
     }
 }
