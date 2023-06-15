@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class SecurityController {
     @GetMapping("/login")
-    public String login(@RequestParam(name = "registration", required = false, defaultValue = "")String name, Model model) {
-        model.addAttribute(name="registration");
+    public String login(@RequestParam(name = "param", required = false, defaultValue = "")String name, Model model) {
+        model.addAttribute(name);
         return "login";
     }
 }

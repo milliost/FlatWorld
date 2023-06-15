@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-  <title>Hello World!</title>
+  <title>users</title>
 </head>
 <body>
 <form th:action="@{/greeting}" method="get">
@@ -23,6 +23,7 @@
       <th>Name</th>
       <th>Email</th>
       <th>Password</th>
+      <th>role</th>
     </tr>
     </thead>
     <tbody>
@@ -30,6 +31,7 @@
       <td th:text = "${user.name}"></td>
       <td th:text = "${user.email}"></td>
       <td th:text = "${user.password}"></td>
+      <td th:text = "${user.roles}"></td>
     </tr>
     </tbody>
   </table>

@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example </title>
+    <title>login</title>
 </head>
 <body>
 <div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<div th:if="${param.registration}">
-    <p><img src="https://l-files.livejournal.net/og_image/5179427/18727?v=1585923719"
-            width="600" height="400" alt="Ой, картинка с регистрацией исчезла">
+    <p><img src="https://avatars.mds.yandex.net/i?id=2f01c7bd23c2650943ab716aa7b9eee25c6391ff-5987336-images-thumbs&n=13"
+            alt="Ой, картинка с ошибкой исчезла">
     </p>
 </div>
+<div th:if="${param.logout}">
+    <p><img src="https://memesmix.net/media/created/2wjj0z.jpg"
+            alt="Ой, картинка с ошибкой исчезла">
+    </p>
+</div>
+
 <form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
+    <div><label> Email : <input type="text" name="username"/> </label></div>
     <div><label> Password: <input type="password" name="password"/> </label></div>
     <div><input type="submit" value="Sign In"/></div>
-
 </form>
+
 <form th:action="@{/registration}">
     <input type="submit" value="Registration!">
 </form>
