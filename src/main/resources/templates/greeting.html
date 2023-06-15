@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title>Hello World!</title>
+</head>
+<body>
+<h1 th:inline="text">Hello <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+<form th:action="@{/users}" method="get">
+    <input type="submit" value="check users"/>
+</form>
+
+<p><img src="https://kartinkof.club/uploads/posts/2022-05/1653232359_3-kartinkof-club-p-kartinki-privet-koshka-4.jpg" width="200" height="200" alt="Ой, картинка с котиком исчезла">
+</p>
+</body>
+</html>

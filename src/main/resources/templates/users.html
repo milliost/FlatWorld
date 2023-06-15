@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+  <title>Hello World!</title>
+</head>
+<body>
+<form th:action="@{/greeting}" method="get">
+  <input type="submit" value="back"/>
+</form>
+<form th:action="@{/users}" method="post">
+  <div><label> Email : <input type="text" name="email"/> </label></div>
+  <div><input type="submit" value="Find Email"/></div>
+
+</form>
+<div>
+  <div>
+    <h2>List of Registered Users</h2>
+  </div>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Password</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each = "user : ${users}">
+      <td th:text = "${user.name}"></td>
+      <td th:text = "${user.email}"></td>
+      <td th:text = "${user.password}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
