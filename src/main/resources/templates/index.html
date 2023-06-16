@@ -2,10 +2,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>My Serving Web Content</title>
+    <link rel="stylesheet" href="/src/main/resources/static/css/registration.css">
 </head>
 <body>
-<h1>Welcome!</h1>
-<p>front</p>
-<p>Click <a th:href="@{/greeting}">here</a> to see a greeting.</p>
-</body>
+    <div class="container">
+      
+    <div class="block">
+      <div class ='er' th:if="${param.error}">
+        <div class="close-button">
+         x
+        </div>
+      </div>
+      <form th:action="@{/registration}" method="post">
+        <h1>Registration Form</h1>
+        <label class="label-name label">
+          <input type="text" placeholder="User name" name="name"/> </label>
+        <label class="pass"> 
+          <input type="password" placeholder="Password" name="password"/>
+        </label>
+        <label class="repeat-pass">  
+          <input type="password" placeholder="Repeat Password" name="repeatPassword"/>
+        </label>
+        <label class="mail"> 
+          <input type="email"  placeholder="Mail" name="email"/> 
+        </label>
+          <input class="submit-btn" type="submit">
+      </form>
+    </div>
+    </div>
+    <script src="/src/main/resources/static/js/registration.js"> </script>
+  </body>
 </html>
