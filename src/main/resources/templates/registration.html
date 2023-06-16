@@ -1,20 +1,39 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
-    <title>registration</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration</title>
+  <link rel="stylesheet" th:href="@{/css/registration.css}">
+
 </head>
 <body>
-<div th:if="${param.error}">
-    <p><img src="https://avatars.mds.yandex.net/i?id=2f01c7bd23c2650943ab716aa7b9eee25c6391ff-5987336-images-thumbs&n=13"
-            alt="Ой, картинка с ошибкой исчезла">
-    </p>
-</div>
-<form th:action="@{/registration}" method="post">
-    <div><label> User Name : <input type="text" name="name"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><label> Repeat password: <input type="password" name="repeatPassword"/> </label></div>
-    <div><label> email: <input type="email" name="email"/> </label></div>
-    <div><input type="submit"></div>
-</form>
+  <div class="container">
+    <!-- <div th:if="${param.error}">
+  </div> -->
+  <div class="block">
+    <form th:action="@{/registration}" method="post">
+      <h1>Registration Form</h1>
+      <label class="label-name label">
+        <input type="text" placeholder="User name" name="name"/> </label>
+      <label class="pass"> 
+        <input type="password" placeholder="Password" name="password"/>
+      </label>
+      <label class="repeat-pass">  
+        <input type="password" placeholder="Repeat Password" name="repeatPassword"/>
+      </label>
+      <label class="mail"> 
+        <input type="email"  placeholder="Mail" name="email"/> 
+      </label>
+        <input class="submit-btn" type="submit">
+    </form>
+  </div>
+  </div>
+  <script type="text/javascript" th:src="@{/js/registration.js}"> </script>
 </body>
 </html>
+
+
+
+<!-- <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"> -->

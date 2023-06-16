@@ -42,5 +42,4 @@ public class RegistrationController {
     public String registration(){
         return "registration";
     }
-
 }

@@ -1,0 +1,86 @@
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(#e66465, #9198e5);
+  width: 100%;
+  height: 100vh;
+}
+
+.block {
+  opacity: 0;
+  flex-direction: column;
+  align-items: center;
+  width: 30rem;
+  height: 40rem;
+  border-radius: 4%;
+  background-color: rgba(114, 69, 154, 0.527);
+  box-shadow: 4px 4px 9px 7px rgba(255, 255, 255, 0.1);
+  transform: scale(0);
+  transition: opacity .4s, visibility .4s, transform 0.5s;
+}
+
+.block.open  {
+  display: flex;
+  opacity: 1;
+  transform: scale(1);
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+input {
+  border-radius: 5%;
+}
+
+h1 {
+  font-size: 3rem;
+  color: white;
+  margin-top: 2rem;
+  margin-bottom: 6rem;
+}
+label {
+  margin-bottom: 1rem;
+}
+
+.submit-btn {
+ margin-top: 9rem;
+ margin-left: 10rem;
+ width: 12rem;
+ height: 4rem;
+ border-radius: 6%;
+ background-color: rgb(124, 190, 25);
+}
+
+.submit-btn .succes {
+ background-color: #9198e5;
+}
