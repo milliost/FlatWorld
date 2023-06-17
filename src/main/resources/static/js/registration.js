@@ -1,5 +1,7 @@
-let submitBtn = document.querySelector('.submit-btn');
-let block = document.querySelector('.block');
+const submitBtn = document.querySelector('.submit-btn');
+const block = document.querySelector('.block');
+const closeButton = document.querySelector('.close-button');
+const modalWindow = document.querySelector('.er');
 
 setTimeout(function () {
   block.classList.add('open')
@@ -19,3 +21,8 @@ setTimeout(function () {
 
 
 
+
+closeButton.addEventListener('click', ()=> {
+ setTimeout(modalWindow.classList.remove('open'),  5000)
+
+})
