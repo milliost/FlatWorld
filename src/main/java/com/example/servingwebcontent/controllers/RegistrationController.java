@@ -6,7 +6,6 @@ import com.example.servingwebcontent.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -42,12 +41,12 @@ public class RegistrationController {
     }
     @ResponseBody
     @GetMapping("/checkName")
-    public boolean checkName(@RequestParam(name = "name", required = true) String name){
+    public boolean checkName(@RequestParam(name = "name") String name){
         return userService.findByName(name) != null;
     }
     @ResponseBody
     @GetMapping("/checkEmail")
-    public boolean checkEmail(@RequestParam(name = "email", required = true) String email){
+    public boolean checkEmail(@RequestParam(name = "email") String email){
         return userService.findUserByEmail(email) != null;
     }
 }
