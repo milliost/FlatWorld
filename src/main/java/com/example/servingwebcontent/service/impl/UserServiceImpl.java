@@ -5,27 +5,21 @@ import com.example.servingwebcontent.entity.User;
 import com.example.servingwebcontent.repository.RoleRepository;
 import com.example.servingwebcontent.repository.UserRepository;
 import com.example.servingwebcontent.service.UserService;
+
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
-
-    public UserServiceImpl(UserRepository userRepository,
-                           RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public void saveUser(User user) {
@@ -41,6 +35,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+    @Override
+    public User findByName(String name) {
+        return userRepository.findByName(name);
     }
 
     @Override
