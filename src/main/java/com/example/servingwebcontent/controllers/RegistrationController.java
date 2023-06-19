@@ -6,25 +6,26 @@ import com.example.servingwebcontent.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
+@RequestMapping("/registration")
 @Controller
 public class RegistrationController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/registration")
+    @GetMapping()
+    public String registration(){
+        return "registration";
+    }
+    @PostMapping()
     public String addNewUser (
             @RequestParam String name,
             @RequestParam String email,
             @RequestParam String password,
-            @RequestParam String repeatPassword,
-            Model model) {
+            @RequestParam String repeatPassword) {
         if(password.equals(repeatPassword)){
         User n=new User();
         n.setName(name);
@@ -38,8 +39,14 @@ public class RegistrationController {
             return "redirect:/registration?error";
         }
     }
-    @GetMapping("/registration")
-    public String registration(){
-        return "registration";
+    @ResponseBody
+    @GetMapping("/checkName")
+    public boolean checkName(@RequestParam(name = "name") String name){
+        return userService.findByName(name) != null;
+    }
+    @ResponseBody
+    @GetMapping("/checkEmail")
+    public boolean checkEmail(@RequestParam(name = "email") String email){
+        return userService.findUserByEmail(email) != null;
     }
 }
