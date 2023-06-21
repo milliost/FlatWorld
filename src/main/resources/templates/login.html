@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="ru">
 <head>
     <title>login</title>
 </head>
@@ -10,13 +10,13 @@
     </p>
 </div>
 <div th:if="${param.logout}">
-    <p><img src="https://memesmix.net/media/created/2wjj0z.jpg"
-            alt="Ой, картинка с ошибкой исчезла">
+    <p><img
+            alt="Ой, картинка с досвидули исчезла" th:src="@{/img/logout.jpg}">
     </p>
 </div>
 
 <form th:action="@{/login}" method="post">
-    <div><label> Email : <input type="text" name="username"/> </label></div>
+    <div><label> Email or Name: <input type="text" name="username"/> </label></div>
     <div><label> Password: <input type="password" name="password"/> </label></div>
     <div><input type="submit" value="Sign In"/></div>
 </form>

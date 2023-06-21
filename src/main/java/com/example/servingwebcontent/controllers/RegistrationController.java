@@ -2,18 +2,16 @@ package com.example.servingwebcontent.controllers;
 
 import com.example.servingwebcontent.entity.User;
 import com.example.servingwebcontent.service.UserService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
 @RequestMapping("/registration")
 @Controller
+@AllArgsConstructor
 public class RegistrationController {
 
-    @Autowired
     private UserService userService;
 
     @GetMapping()

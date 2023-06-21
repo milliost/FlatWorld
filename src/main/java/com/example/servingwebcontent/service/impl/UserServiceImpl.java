@@ -5,12 +5,10 @@ import com.example.servingwebcontent.entity.User;
 import com.example.servingwebcontent.repository.RoleRepository;
 import com.example.servingwebcontent.repository.UserRepository;
 import com.example.servingwebcontent.service.UserService;
-
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @AllArgsConstructor
@@ -46,7 +44,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-    private Role checkRoleExist(){
+    private Role checkRoleExist() {
         Role role = new Role();
         role.setName("ROLE_ADMIN");
         return roleRepository.save(role);
