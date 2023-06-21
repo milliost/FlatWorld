@@ -3,6 +3,7 @@ package com.example.servingwebcontent.security;
 import com.example.servingwebcontent.entity.Role;
 import com.example.servingwebcontent.entity.User;
 import com.example.servingwebcontent.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,21 +15,24 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
 
-    public CustomUserDetailsService(UserRepository userRepository) {
-
-        this.userRepository = userRepository;
-    }
-
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
+    public UserDetails loadUserByUsername(String emailOrName) throws UsernameNotFoundException {
+
+        User user;
+
+        if(emailOrName.indexOf('@')!= -1) {
+            user = userRepository.findByEmail(emailOrName);
+        }else {
+            user = userRepository.findByName(emailOrName);
+        }
 
         if (user != null) {
-            return new org.springframework.security.core.userdetails.User(user.getEmail(),
+            return new org.springframework.security.core.userdetails.User(user.getName(),
                     user.getPassword(),
                     mapRolesToAuthorities(user.getRoles()));
         }else{
