@@ -30,7 +30,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(#e66465, #9198e5);
+  background: linear-gradient(#292929, #A5A5A5);
   width: 100%;
   height: 100vh;
 }
@@ -42,8 +42,8 @@ img {
   width: 30rem;
   height: 40rem;
   border-radius: 4%;
-  background-color: rgba(114, 69, 154, 0.527);
-  box-shadow: 4px 4px 9px 7px rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 1);
+  box-shadow: 4px 4px 9px 7px rgba(255, 255, 255, 1);
   transform: scale(0);
   transition: opacity .4s, visibility .4s, transform 0.5s;
 }

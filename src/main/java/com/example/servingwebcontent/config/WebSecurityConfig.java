@@ -34,7 +34,8 @@ public class WebSecurityConfig {
                                 "/registration",
                                 "/css/{code}.css",
                                 "/js/{code}.js",
-                                "/registration/{code}").permitAll()
+                                "/registration/{code}",
+                                "/img/favicon.ico").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
