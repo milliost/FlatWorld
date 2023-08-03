@@ -6,6 +6,9 @@ import com.example.servingwebcontent.repository.RoleRepository;
 import com.example.servingwebcontent.repository.UserRepository;
 import com.example.servingwebcontent.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

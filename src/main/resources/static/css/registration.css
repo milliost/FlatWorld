@@ -66,21 +66,19 @@ h1 {
   font-size: 3rem;
   color: white;
   margin-top: 2rem;
-  margin-bottom: 6rem;
+  margin-bottom: 5rem;
 }
 label {
   margin-bottom: 1rem;
 }
 
 .submit-btn {
- margin-top: 9rem;
- margin-left: 10rem;
+ margin-top: 1rem;
  width: 12rem;
  height: 4rem;
  border-radius: 6%;
- background-color: rgb(124, 190, 25);
+ background-color: greenyellow;
 }
-
-.submit-btn .succes {
- background-color: #9198e5;
+.checkName,.checkPass{
+  color: red;
 }

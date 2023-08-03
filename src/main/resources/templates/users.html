@@ -6,7 +6,7 @@
   <link rel="icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
 </head>
 <body>
-<form th:action="@{/greeting}" method="get">
+<form th:action="@{/}" method="get">
   <input type="submit" value="back"/>
 </form>
 <form th:action="@{/users}" method="post">
@@ -16,22 +16,17 @@
 </form>
 <div>
   <div>
-    <h2>List of Registered Users</h2>
+    <h2>Игроки</h2>
   </div>
   <table>
     <thead>
     <tr>
       <th>Name</th>
-      <th>Email</th>
-      <th>Password</th>
-      <th>role</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each = "user : ${users}">
       <td th:text = "${user.name}"></td>
-      <td th:text = "${user.email}"></td>
-      <td th:text = "${user.password}"></td>
     </tr>
     </tbody>
   </table>

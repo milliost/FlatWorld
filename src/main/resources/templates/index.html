@@ -1,12 +1,30 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="ru"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-    <title>My Serving Web Content</title>
+    <title>Greeting</title>
     <link rel="icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
 </head>
 <body>
-<h1>Welcome!</h1>
-<p>hello Stas</p>
-<p>Click <a th:href="@{/greeting}">here</a> to see a greeting.</p>
+<h1 th:inline="text">Hello, <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>
+
+<form th:action="@{/login}" method="post">
+    <input type="submit" value="Войти в аккаунт"/>
+</form>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Выйти из аккаунта"/>
+</form>
+
+<form th:action="@{/game}" method="get">
+    <input type="submit" value="Играть"/>
+</form>
+
+<form th:action="@{/users}" method="get">
+    <input type="submit" value="Посмотреть достижения игроков"/>
+</form>
+
+<p><img src="https://kartinkof.club/uploads/posts/2022-05/1653232359_3-kartinkof-club-p-kartinki-privet-koshka-4.jpg" width="200" height="200" alt="Ой, картинка с котиком исчезла">
+</p>
 </body>
 </html>

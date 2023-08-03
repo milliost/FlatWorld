@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,23 +9,38 @@
   <link rel="stylesheet" th:href="@{/css/registration.css}">
   <link rel="icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
 </head>
+
 <body>
   <div class="container">
   <div class="block">
     <form th:action="@{/registration}" method="post">
       <h1>Registration Form</h1>
-      <label class="label-name label">
-        <input type="text" placeholder="User name" name="name"/> </label>
+
+      <label class="name">
+        <input id = "name" type="text" placeholder="User name" name="name" />
+      </label>
+
+      <label class="checkName">
+      <p id="checkName">*Имя занято</p>
+      </label>
+
       <label class="pass"> 
-        <input type="password" placeholder="Password" name="password"/>
+        <input id="pass" type="password" placeholder="Password" name="password"/>
       </label>
-      <label class="repeat-pass">  
-        <input type="password" placeholder="Repeat Password" name="repeatPassword"/>
+
+      <label class="repeatPass">
+        <input id="repeatPass" type="password" placeholder="Repeat Password" name="repeatPassword"/>
       </label>
-      <label class="mail"> 
-        <input type="email"  placeholder="Mail" name="email"/> 
+
+      <label class="checkPass">
+        <p id="checkPass">*Пароли не совпадают</p>
       </label>
-        <input class="submit-btn" type="submit">
+
+      <label class="email">
+        <input id="email" type="email"  placeholder="Mail" name="email"/>
+      </label>
+
+        <input id="button" class="submit-btn" disabled="true" type="submit">
     </form>
   </div>
   </div>

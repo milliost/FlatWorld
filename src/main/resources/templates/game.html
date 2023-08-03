@@ -3,12 +3,55 @@
 
 <head>
     <title>Игра</title>
+    <link rel="stylesheet" th:href="@{/css/game.css}">
     <link rel="icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
 </head>
 
 <body>
-<p><img
-        alt="Ой, картинка с картой исчезла" th:src="@{/img/map.jpg}">
-</p>
+
+
+
+<div class="container">
+
+    <p>
+        <img
+                alt="Ой, картинка с картой исчезла" th:src="@{/img/map.jpg}">
+    </p>
+
+    <h2>Игроки</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each = "user : ${users}">
+        <td th:text = "${user.name}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<form th:action="@{/sit1}" method="post">
+    <input type="button" value="Сесть за 1 стул"/>
+</form>
+
+<form th:action="@{/sit2}" method="post">
+    <input type="button" value="Сесть за 2 стул"/>
+</form>
+
+<form th:action="@{/sit3}" method="post">
+    <input type="button" value="Сесть за 3 стул"/>
+</form>
+
+<form th:action="@{/sit4}" method="post">
+    <input type="button" value="Сесть за 4 стул"/>
+</form>
+
+<form th:action="@{/ready}" method="post">
+    <input type="button" value="Готов"/>
+</form>
+</div>
 </body>
 </html>
