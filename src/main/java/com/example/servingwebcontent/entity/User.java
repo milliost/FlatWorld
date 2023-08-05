@@ -43,6 +43,8 @@ public class User implements UserDetails {
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles = new ArrayList<>();
 
+    private int wins;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();

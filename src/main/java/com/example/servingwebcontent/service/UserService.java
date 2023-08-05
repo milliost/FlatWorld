@@ -12,6 +12,7 @@ public interface UserService {
     User findUserByEmail(String email);
 
     User findByName(String name);
+    void addWin();
 
     List<User> findAllUsers();
 }

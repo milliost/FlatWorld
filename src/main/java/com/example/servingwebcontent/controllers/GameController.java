@@ -3,6 +3,7 @@ package com.example.servingwebcontent.controllers;
 import com.example.servingwebcontent.entity.User;
 import com.example.servingwebcontent.game.GameTable;
 import com.example.servingwebcontent.repository.UserRepository;
+import com.example.servingwebcontent.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,12 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @AllArgsConstructor
 public class GameController {
-    private UserRepository UR;
+    private UserService us;
     GameTable gameTable;
     @GetMapping("/game")
     public String game(Model model) {
@@ -23,6 +25,16 @@ public class GameController {
         gameTable.addUser(getCurrentUser());
         model.addAttribute("users", gameTable.getUsers());
         return "game";
+    }
+    @GetMapping("/chat")
+    public String chat() {
+        return "chat";
+    }
+    @ResponseBody
+    @GetMapping("/myName")
+    public String myName() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getName();
     }
     @ResponseBody
     @PostMapping("/sit1")
@@ -57,6 +69,6 @@ public class GameController {
 
     private User getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return UR.findByName(auth.getName());
+        return us.findByName(auth.getName());
     }
 }

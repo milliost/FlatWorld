@@ -29,9 +29,10 @@ public class RegistrationController {
         n.setName(name);
         n.setEmail(email);
         n.setPassword(password);
+        n.setWins(0);
         userService.saveUser(n);
         System.out.println("User "+ name + " saved");
-        return "redirect:/greeting";
+        return "redirect:/";
         }
         else {
             return "redirect:/registration?error";

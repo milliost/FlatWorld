@@ -14,10 +14,10 @@
   <div class="container">
   <div class="block">
     <form th:action="@{/registration}" method="post">
-      <h1>Registration Form</h1>
+      <h1>Регистрация</h1>
 
       <label class="name">
-        <input id = "name" type="text" placeholder="User name" name="name" />
+        <input id = "name" type="text" placeholder="ник" name="name" />
       </label>
 
       <label class="checkName">
@@ -25,11 +25,11 @@
       </label>
 
       <label class="pass"> 
-        <input id="pass" type="password" placeholder="Password" name="password"/>
+        <input id="pass" type="password" placeholder="введите пароль" name="password"/>
       </label>
 
       <label class="repeatPass">
-        <input id="repeatPass" type="password" placeholder="Repeat Password" name="repeatPassword"/>
+        <input id="repeatPass" type="password" placeholder="повторите пароль" name="repeatPassword"/>
       </label>
 
       <label class="checkPass">
@@ -37,7 +37,7 @@
       </label>
 
       <label class="email">
-        <input id="email" type="email"  placeholder="Mail" name="email"/>
+        <input id="email" type="email"  placeholder="введите почту" name="email"/>
       </label>
 
         <input id="button" class="submit-btn" disabled="true" type="submit">

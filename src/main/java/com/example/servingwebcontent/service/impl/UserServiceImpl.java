@@ -6,6 +6,7 @@ import com.example.servingwebcontent.repository.RoleRepository;
 import com.example.servingwebcontent.repository.UserRepository;
 import com.example.servingwebcontent.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -40,6 +41,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByName(String name) {
         return userRepository.findByName(name);
+    }
+
+    @Override
+    public void addWin() {
+        String userName =SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = findByName(userName);
+        user.setWins(user.getWins()+1);
+        userRepository.save(user);
+
     }
 
     @Override
