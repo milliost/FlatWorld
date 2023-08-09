@@ -2,12 +2,19 @@
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
+var table = document.querySelectorAll('table td')
+var button1=document.querySelector('#button1');
+var button2=document.querySelector('#button2');
+var button3=document.querySelector('#button3');
+var button4=document.querySelector('#button4');
 var stompClient = null;
 var username = null;
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
+
+
 connect('load')
 function connect(event) {
     let request = new XMLHttpRequest();
@@ -86,3 +93,25 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 messageForm.addEventListener('submit', sendMessage, true)
+button1.addEventListener('click',but1,false)
+button2.addEventListener('click',but,false)
+button3.addEventListener('click',but,false)
+button4.addEventListener('click',but,false)
+
+
+function but1(event){
+    function sit1(event) {
+        var messageContent = messageInput.value.trim();
+        if(messageContent && stompClient) {
+            var chatMessage = {
+                sender: username,
+                content: messageInput.value,
+                type: 'CHAT'
+            };
+            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+            messageInput.value = '';
+        }
+        event.preventDefault();
+    }
+    event.preventDefault()
+}

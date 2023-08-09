@@ -8,50 +8,78 @@
 </head>
 
 <body>
+    <noscript>
+        <h2>Sorry! Your browser doesn't support Javascript</h2>
+    </noscript>
+
+    <div class="container">
+
+        <div class="map">
+            <p>
+                <img alt="Ой, картинка с картой исчезла" th:src="@{/img/map.jpg}">
+            </p>
+        </div>
+
+        <div class="game">
+            <did class="table">
+                <table>
+                    <thead>
+                    <th>Место</th>
+                    <th>Ход</th>
+                    <th>Имя</th>
+                    <th>Деньги</th>
+                    <th>Карты</th>
+                    <th>Дебафы</th>
+                    <th>Герой</th>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input class="cellbut" type="button" id="button1" value="1"/></td>
+
+                    </tr>
+                    <tr>
+                        <td><input class="cellbut" type="button" id="button2" value="2"/></td>
+
+                    </tr>
+                    <tr>
+                        <td><input class="cellbut" type="button" id="button3" value="3"/></td>
+
+                    </tr>
+                    <tr>
+                        <td><input class="cellbut" type="button" id="button4" value="4"/></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </did>
 
 
 
-<div class="container">
+            <div id="chat-page" class="hidden">
+            <div class="chat-container">
 
-    <p>
-        <img
-                alt="Ой, картинка с картой исчезла" th:src="@{/img/map.jpg}">
-    </p>
+                <div class="chat-header">
+                    <h1>Spring WebSocket Chat Demo</h1>
+                </div>
 
-    <h2>Игроки</h2>
+                <ul id="messageArea">
+                </ul>
+                <form id="messageForm" name="messageForm">
+                    <div class="form-group">
+                        <div class="input-group clearfix">
+                            <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
+                            <button type="submit" class="primary">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
 
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each = "user : ${users}">
-        <td th:text = "${user.name}"></td>
-    </tr>
-    </tbody>
-</table>
 
-<form th:action="@{/sit1}" method="post">
-    <input type="button" value="Сесть за 1 стул"/>
-</form>
-
-<form th:action="@{/sit2}" method="post">
-    <input type="button" value="Сесть за 2 стул"/>
-</form>
-
-<form th:action="@{/sit3}" method="post">
-    <input type="button" value="Сесть за 3 стул"/>
-</form>
-
-<form th:action="@{/sit4}" method="post">
-    <input type="button" value="Сесть за 4 стул"/>
-</form>
-
-<form th:action="@{/ready}" method="post">
-    <input type="button" value="Готов"/>
-</form>
-</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script th:src="@{/js/game.js}"></script>
 </body>
 </html>

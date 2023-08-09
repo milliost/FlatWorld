@@ -1,10 +1,14 @@
 package com.example.servingwebcontent.controllers;
 
 import com.example.servingwebcontent.entity.User;
-import com.example.servingwebcontent.game.GameTable;
-import com.example.servingwebcontent.repository.UserRepository;
+import com.example.servingwebcontent.model.ChatMessage;
+import com.example.servingwebcontent.model.GameTable;
 import com.example.servingwebcontent.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,17 +22,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @AllArgsConstructor
 public class GameController {
     private UserService us;
-    GameTable gameTable;
+    private GameTable gameTable;
     @GetMapping("/game")
-    public String game(Model model) {
+    public String game() {
         if (gameTable==null){gameTable = new GameTable();}
-        gameTable.addUser(getCurrentUser());
-        model.addAttribute("users", gameTable.getUsers());
         return "game";
     }
-    @GetMapping("/chat")
-    public String chat() {
-        return "chat";
+    @MessageMapping("/chat.sendMessage")
+    @SendTo("/topic/public")
+    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+        return chatMessage;
+    }
+    @MessageMapping("/chat.addUser")
+    @SendTo("/topic/public")
+    public ChatMessage addUser(@Payload ChatMessage chatMessage,
+                               SimpMessageHeaderAccessor headerAccessor) {
+        // Add username in web socket session
+        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        return chatMessage;
     }
     @ResponseBody
     @GetMapping("/myName")
@@ -37,34 +48,16 @@ public class GameController {
         return auth.getName();
     }
     @ResponseBody
-    @PostMapping("/sit1")
-    public String sitDown1() {
-        gameTable.sit(0,getCurrentUser());
-        return "Игрок "+getCurrentUser().getName()+" занял 1 место";
+    @PostMapping("/sit")
+    public String sitDown1(@RequestParam int num) {
+        gameTable.sitOnChair(num,getCurrentUser());
+        return "Игрок " + getCurrentUser().getName() + " занял 1 место";
     }
     @ResponseBody
-    @PostMapping("/sit2")
-    public String sitDown2() {
-        gameTable.sit(1,getCurrentUser());
-        return "Игрок "+getCurrentUser().getName()+" занял 2 место";
-    }
-    @ResponseBody
-    @PostMapping("/sit3")
-    public String sitDown3() {
-        gameTable.sit(2,getCurrentUser());
-        return "Игрок "+getCurrentUser().getName()+" занял 3 место";
-    }
-    @ResponseBody
-    @PostMapping("/sit4")
-    public String sitDown4() {
-        gameTable.sit(3,getCurrentUser());
-        return "Игрок "+getCurrentUser().getName()+" занял 4 место";
-    }
-    @ResponseBody
-    @PostMapping("/ready")
-    public String ready() {
-        gameTable.setReady(getCurrentUser());
-        return "Игрок "+getCurrentUser().getName()+" готов";
+    @PostMapping("/start")
+    public String start(){
+        gameTable.startGame();
+        return "start";
     }
 
     private User getCurrentUser() {

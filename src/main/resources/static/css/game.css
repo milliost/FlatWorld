@@ -1,13 +1,11 @@
 html, body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(#292929, #A5A5A5);
+    background: linear-gradient(#000000, #A5A5A5);
 }
-img {
-    max-width: 100%;
-    height: auto;
-}
+
 .container {
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +13,50 @@ img {
     width: 100%;
     height: 100vh;
 }
+
+.map{
+    justify-content: left;
+}
+
+table, td, th {
+    
+    border: 3px solid #523e25;
+    background-color: #b5905b;
+  }
+  
+    td, th {
+    padding:  0;
+    height: 60px;
+    width: 100px;
+    text-align: center;
+  }
+
 h1, h2, h3, h4, h5, h6, p, ol, ul {
 
     font-weight: normal;
+}
+button{
+    width: 100%;
+    /*position: absolute;*/
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  form{
+    width: 100%;
+    height: 100%;
+  }
+  input{
+    padding: 3px;
+    width: 100%;
+    height: 100%;
+    background-color: #9f7840;
+  }
+  .primary{
+  width: 100%;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
 }
