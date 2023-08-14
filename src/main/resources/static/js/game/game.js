@@ -2,21 +2,12 @@
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
-var table = document.querySelectorAll('table td')
-var button1=document.querySelector('#button1');
-var button2=document.querySelector('#button2');
-var button3=document.querySelector('#button3');
-var button4=document.querySelector('#button4');
 var stompClient = null;
 var username = null;
-var colors = [
-    '#2196F3', '#32c787', '#00BCD4', '#ff5652',
-    '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
-];
 
 
-connect('load')
-function connect(event) {
+connect()
+function connect() {
     let request = new XMLHttpRequest();
     let url = "http://localhost:8080/myName";
     request.open("GET", url);
@@ -30,41 +21,62 @@ function connect(event) {
             stompClient.connect({}, onConnected);
         }
     }
-    event.preventDefault;
+
 }
 
+
 function onConnected() {
-    // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
-    // Tell your username to the server
     stompClient.send("/app/chat.addUser",
         {},
         JSON.stringify({sender: username, type: 'JOIN'})
     )
+    setTimeout(() => {getHistory()}, 250);
 }
 
-function sendMessage(event) {
-    var messageContent = messageInput.value.trim();
-    if(messageContent && stompClient) {
-        var chatMessage = {
-            sender: username,
-            content: messageInput.value,
-            type: 'CHAT'
-        };
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-        messageInput.value = '';
-    }
-    event.preventDefault();
-}
+
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
     var messageElement = document.createElement('li');
+
     if(message.type === 'JOIN') {
         messageElement.classList.add('event-message');
         message.content = message.sender + ' joined!';
-    } else if (message.type === 'LEAVE') {
+
+    }else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
         message.content = message.sender + ' left!';
+
+    }else if(message.type === 'HISTORY'){
+        var conT = message.content;
+        let array = conT.split(" ");
+        for(let i=0; i<array.length;i=i+2){
+            let num = array[i];
+            let name = array[i+1]
+            tableName(parseInt(num),name);
+        }
+        messageElement.classList.add('event-message');
+
+    } else if (message.type === 'SIT') {
+
+        if(message.content==="button1"){
+            tableName(0,message.sender);
+            message.content = message.sender + ' sit1!';
+            messageElement.classList.add('event-message');
+        }else if(message.content==="button2"){
+            tableName(1,message.sender);
+            message.content = message.sender + ' sit2!';
+            messageElement.classList.add('event-message');
+        }else if(message.content==="button3") {
+            tableName(2,message.sender);
+            message.content = message.sender + ' sit3!';
+            messageElement.classList.add('event-message');
+        }else {
+            tableName(3,message.sender);
+            message.content = message.sender + ' sit4!';
+            messageElement.classList.add('event-message');
+        }
+
     } else {
         messageElement.classList.add('chat-message');
         var avatarElement = document.createElement('i');
@@ -84,34 +96,12 @@ function onMessageReceived(payload) {
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
 }
-function getAvatarColor(messageSender) {
-    var hash = 0;
-    for (var i = 0; i < messageSender.length; i++) {
-        hash = 31 * hash + messageSender.charCodeAt(i);
-    }
-    var index = Math.abs(hash % colors.length);
-    return colors[index];
-}
-messageForm.addEventListener('submit', sendMessage, true)
-button1.addEventListener('click',but1,false)
-button2.addEventListener('click',but,false)
-button3.addEventListener('click',but,false)
-button4.addEventListener('click',but,false)
+function getHistory() {
 
-
-function but1(event){
-    function sit1(event) {
-        var messageContent = messageInput.value.trim();
-        if(messageContent && stompClient) {
-            var chatMessage = {
-                sender: username,
-                content: messageInput.value,
-                type: 'CHAT'
-            };
-            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-            messageInput.value = '';
-        }
-        event.preventDefault();
-    }
-    event.preventDefault()
+    let chatMessage = {
+        sender: username,
+        content: "",
+        type: 'HISTORY'
+    };
+    stompClient.send("/app/chat.history", {}, JSON.stringify(chatMessage));
 }

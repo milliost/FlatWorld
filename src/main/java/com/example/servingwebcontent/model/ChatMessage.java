@@ -12,7 +12,9 @@ public class ChatMessage {
     public enum MessageType {
         CHAT,
         JOIN,
-        LEAVE
+        SIT,
+        LEAVE,
+        HISTORY
     }
 
 }

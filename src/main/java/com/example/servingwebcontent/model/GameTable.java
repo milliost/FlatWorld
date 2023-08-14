@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
 
 
 @Service
@@ -21,9 +21,14 @@ public class GameTable {
     private User[] chairs = new User[5];
 
     public void sitOnChair(int numOfChair,User user){
-        chairs[getChair(user)]=null;
-        chairs[numOfChair]=getCurrentUser();
+        int chairNow = getChair(user); //выдает -1 когда юзер только подключился
+        if(chairNow!=-1){chairs[chairNow]=null;} //проверка на -1
+        chairs[numOfChair]=user;
     }
+    public void upChair(int numOfChair){
+        chairs[numOfChair]=null;
+    }
+
 
     public void startGame(){
         Game game= new Game(makeUserArrayForGame());
@@ -34,8 +39,8 @@ public class GameTable {
     public User[] makeUserArrayForGame(){
 
         int k =0;
-        for(int i = 0; i<chairs.length; i++){
-            if (chairs[i]!=null) k++;
+        for (User user : chairs) {
+            if (user != null) k++;
         }
 
         User[] userArrayForGame = new User[k];
@@ -54,12 +59,22 @@ public class GameTable {
     }
     private int getChair(User user){
         for(int i=0; i<chairs.length; i++){
-            if(chairs[i].getName().equals(user.getName())) return i;
+            if(chairs[i]!=null && chairs[i]==user){
+                return i;
+            }
         }
         return -1;
     }
-    private User getCurrentUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return us.findByName(auth.getName());
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<chairs.length; i++){
+            sb.append(i).append(" ");
+            if(chairs[i]!=null){
+                sb.append(chairs[i].getName()).append(" ");
+            }else sb.append("null ");
+        }
+        return sb.toString();
     }
 }
+

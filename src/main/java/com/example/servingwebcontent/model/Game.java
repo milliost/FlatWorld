@@ -21,10 +21,12 @@ public class Game {
     public Game(User[] users){
         players = new Player[users.length];
         for (int i = 0; i<players.length; i++){
+            players[i]=new Player();
             players[i].setName(users[i].getName());
             players[i].setMoney(10);
             players[i].getCards();
             players[i].setHero(getRandomHero(players.length));
+
         }
     }
 
@@ -32,7 +34,7 @@ public class Game {
 
         while (true){
             for (int i=0; i<players.length;i++){
-
+                players[i]
             }
         }
     }

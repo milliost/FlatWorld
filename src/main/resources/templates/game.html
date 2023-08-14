@@ -21,37 +21,15 @@
         </div>
 
         <div class="game">
-            <did class="table">
-                <table>
-                    <thead>
-                    <th>Место</th>
-                    <th>Ход</th>
-                    <th>Имя</th>
-                    <th>Деньги</th>
-                    <th>Карты</th>
-                    <th>Дебафы</th>
-                    <th>Герой</th>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><input class="cellbut" type="button" id="button1" value="1"/></td>
+            <div>
+                <form>
+                    <input class=cellbut type="button" id="buttonStart" value="start"/>
+                </form>
+            </div>
+            <div id="table2">
 
-                    </tr>
-                    <tr>
-                        <td><input class="cellbut" type="button" id="button2" value="2"/></td>
+            </div>
 
-                    </tr>
-                    <tr>
-                        <td><input class="cellbut" type="button" id="button3" value="3"/></td>
-
-                    </tr>
-                    <tr>
-                        <td><input class="cellbut" type="button" id="button4" value="4"/></td>
-
-                    </tr>
-                    </tbody>
-                </table>
-            </did>
 
 
 
@@ -66,10 +44,7 @@
                 </ul>
                 <form id="messageForm" name="messageForm">
                     <div class="form-group">
-                        <div class="input-group clearfix">
-                            <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
-                            <button type="submit" class="primary">Send</button>
-                        </div>
+
                     </div>
                 </form>
             </div>
@@ -80,6 +55,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script th:src="@{/js/game.js}"></script>
+    <script th:src="@{/js/game/game.js}"></script>
+    <script th:src="@{/js/game/table.js}"></script>
 </body>
 </html>
