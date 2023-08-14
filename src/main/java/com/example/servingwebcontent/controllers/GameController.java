@@ -2,6 +2,7 @@ package com.example.servingwebcontent.controllers;
 
 import com.example.servingwebcontent.entity.User;
 import com.example.servingwebcontent.model.ChatMessage;
+import com.example.servingwebcontent.model.Game;
 import com.example.servingwebcontent.model.GameTable;
 import com.example.servingwebcontent.service.UserService;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class GameController {
     private UserService us;
     private GameTable gameTable;
+    private Game game;
     @GetMapping("/game")
     public String game() {
         return "game";
@@ -31,6 +33,7 @@ public class GameController {
     public String kek() {
         return gameTable.toString();
     }
+
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
@@ -78,10 +81,9 @@ public class GameController {
     @MessageMapping("/chat.start")
     @SendTo("/topic/public")
     public ChatMessage start(@Payload ChatMessage chatMessage){
-        chatMessage.setSender("Server");
-        chatMessage.setContent("Start game");
-        chatMessage.setType(ChatMessage.MessageType.CHAT);
-        gameTable.startGame();
+        game.start();
+        chatMessage.setSender("server");
+        chatMessage.setContent();
         return chatMessage;
     }
     @MessageMapping("/chat.chair")
@@ -103,5 +105,7 @@ public class GameController {
         }
         return chatMessage;
     }
+
+
 }
 

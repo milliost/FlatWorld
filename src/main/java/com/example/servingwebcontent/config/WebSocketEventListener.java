@@ -1,5 +1,6 @@
-package com.example.servingwebcontent.model;
+package com.example.servingwebcontent.config;
 
+import com.example.servingwebcontent.model.ChatMessage;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.mvc.method.annotation.SessionAttributeMethodArgumentResolver;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
@@ -33,4 +35,9 @@ public class WebSocketEventListener {
             messagingTemplate.convertAndSend("/topic/public", chatMessage);
         }
     }
+    @EventListener
+    public void h(SessionAttributeMethodArgumentResolver event){
+        event.resolveArgument()
+    }
+
 }

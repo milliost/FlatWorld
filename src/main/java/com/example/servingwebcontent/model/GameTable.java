@@ -28,14 +28,6 @@ public class GameTable {
     public void upChair(int numOfChair){
         chairs[numOfChair]=null;
     }
-
-
-    public void startGame(){
-        Game game= new Game(makeUserArrayForGame());
-        game.start();
-    }
-
-
     public User[] makeUserArrayForGame(){
 
         int k =0;
