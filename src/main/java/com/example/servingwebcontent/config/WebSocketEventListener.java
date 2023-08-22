@@ -3,6 +3,7 @@ package com.example.servingwebcontent.config;
 import com.example.servingwebcontent.model.ChatMessage;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.apache.catalina.SessionEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
@@ -35,9 +36,4 @@ public class WebSocketEventListener {
             messagingTemplate.convertAndSend("/topic/public", chatMessage);
         }
     }
-    @EventListener
-    public void h(SessionAttributeMethodArgumentResolver event){
-        event.resolveArgument()
-    }
-
 }

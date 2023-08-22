@@ -1,67 +1,80 @@
 package com.example.servingwebcontent.model;
 
-import com.example.servingwebcontent.config.WebSocketEventListener;
+import com.example.servingwebcontent.controllers.GameController;
 import com.example.servingwebcontent.entity.User;
-import com.example.servingwebcontent.model.heroes.Hero;
-import com.example.servingwebcontent.model.heroes.heroesImpl.*;
-import com.example.servingwebcontent.service.UserService;
+import com.example.servingwebcontent.events.CustomSpringEvent;
+import com.example.servingwebcontent.model.heroes.HeroType;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 @Getter
 @Setter
-public class Game {
-    private WebSocketEventListener WSEL;
-    private UserService us;
+public class Game{
+    private static final Logger logger = LoggerFactory.getLogger(GameController.class);
     private Player[] players;
-
-    private Chrysoprase chrysoprase;
-    private Dragon dragon;
-    private LordDeWord lordDeWord;
-    private LordRust lordRust;
-    private LordSelachii lordSelachii;
-    private Vetinari vetinari;
-    private Vimes vimes;
+    private int card;
     public Game(User[] users){
+
         players = new Player[users.length];
+        List<HeroType> heroesPool = HeroType.getListOfHeroes();
+
         for (int i = 0; i<players.length; i++){
             players[i]=new Player();
             players[i].setName(users[i].getName());
             players[i].setMoney(10);
             players[i].getCards();
-            players[i].setHero(getRandomHero(players.length));
-
+            players[i].setHeroType(getRandomHero(players.length, heroesPool));
+            logger.info(players[i].getHeroType().getName());
         }
     }
 
-    public void start(){
-        boolean win = false;
-        while (!win){
+    public Player start(){
+        while (true) {
             for (Player turnPlayer : players) {
-                if (turnPlayer.getHero().win(players.length, 5)){
-                    us.addWin();
-                    win = true;
+                if (turnPlayer.getHeroType().win(
+                        turnPlayer.getHeroType(),
+                        players.length,
+                        0)) {
+                    return turnPlayer;
                 } else {
-                    WSEL.h();
+                    We
+                    logger.info("ход сделан");
                 }
             }
-
         }
     }
-    public Player getPlayer(int i){return players[i];}
 
-    private Hero getRandomHero(int numberOfPlayers){//дописать т.к. герои повторяются
-        if (numberOfPlayers==2){
-        Hero[] heroes =new Hero[]{dragon,lordDeWord,lordRust,lordSelachii,vetinari,vimes};
-        return heroes[(int)(Math.random()*6)];}
-
-        else if (numberOfPlayers==3) {
-            Hero[] heroes =new Hero[]{chrysoprase,dragon,lordDeWord,lordSelachii,vetinari,vimes};
-            return heroes[(int)(Math.random()*6)];}
-
-        else{
-            Hero[] heroes =new Hero[]{chrysoprase,dragon,lordDeWord, lordRust,lordSelachii,vetinari,vimes};
-            return heroes[(int)(Math.random()*7)];
+    private HeroType getRandomHero(int numberOfPlayers, List<HeroType> heroesPool){
+        switch (numberOfPlayers){
+            case 2 ->{
+                heroesPool.remove(HeroType.CHRYSOPRASE);
+                int random = (int)(Math.random()*6);
+                HeroType returnedHero = heroesPool.get(random);
+                heroesPool.remove(returnedHero);
+                return returnedHero;
+            }
+            case 3->{
+                heroesPool.remove(HeroType.LORD_RUST);
+                int random = (int)(Math.random()*6);
+                HeroType returnedHero = heroesPool.get(random);
+                heroesPool.remove(returnedHero);
+                return returnedHero;
+            }
+            case 4->{
+                int random = (int)(Math.random()*6);
+                HeroType returnedHero = heroesPool.get(random);
+                heroesPool.remove(returnedHero);
+                return returnedHero;
+            }
         }
+        return HeroType.CHRYSOPRASE;
+    }
+    private void addHeroes(){
+
     }
 }

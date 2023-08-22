@@ -1,11 +1,20 @@
 package com.example.servingwebcontent.controllers;
 
+import com.example.servingwebcontent.config.WebSocketEventListener;
 import com.example.servingwebcontent.entity.User;
+import com.example.servingwebcontent.events.CustomSpringEvent;
 import com.example.servingwebcontent.model.ChatMessage;
 import com.example.servingwebcontent.model.Game;
 import com.example.servingwebcontent.model.GameTable;
 import com.example.servingwebcontent.service.UserService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextStartedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -19,10 +28,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @AllArgsConstructor
-public class GameController {
+public class GameController{
+    private static final Logger logger = LoggerFactory.getLogger(GameController.class);
     private UserService us;
     private GameTable gameTable;
-    private Game game;
+    private ApplicationEventPublisher applicationEventPublisher;
+
     @GetMapping("/game")
     public String game() {
         return "game";
@@ -44,7 +55,7 @@ public class GameController {
     public ChatMessage addUser(@Payload ChatMessage chatMessage,
                                SimpMessageHeaderAccessor headerAccessor) {
 
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+//        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
 
         for(int i=0; i<gameTable.getChairs().length;i++){ //проверка на юзера в массиве
             User usr = gameTable.getChairs()[i];
@@ -76,14 +87,16 @@ public class GameController {
     @GetMapping("/myName")
     public String myName() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
         return auth.getName();
     }
     @MessageMapping("/chat.start")
     @SendTo("/topic/public")
-    public ChatMessage start(@Payload ChatMessage chatMessage){
-        game.start();
+    public ChatMessage start(@Payload ChatMessage chatMessage) throws InterruptedException {
+        Game game = new Game(gameTable.makeUserArrayForGame());
+        String winner = game.start().getName();
         chatMessage.setSender("server");
-        chatMessage.setContent();
+        chatMessage.setContent(winner + "win");
         return chatMessage;
     }
     @MessageMapping("/chat.chair")
@@ -107,5 +120,15 @@ public class GameController {
     }
 
 
+    @MessageMapping("/chat.endTurn")
+    @SendTo("/topic/public")
+    public ChatMessage endTurn(@Payload ChatMessage chatMessage) {
+        applicationEventPublisher.publishEvent(new CustomSpringEvent(this,3));
+        logger.info("event");
+        return chatMessage;
+    }
 }
+
+
+
 
