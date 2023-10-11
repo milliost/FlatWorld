@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.controllers;
+package com.example.servingwebcontent.controllers.others;
 
 import com.example.servingwebcontent.entity.User;
 import com.example.servingwebcontent.service.UserService;

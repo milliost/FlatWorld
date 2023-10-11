@@ -1,13 +1,16 @@
-package com.example.servingwebcontent.controllers;
+package com.example.servingwebcontent.controllers.others;
 
 import com.example.servingwebcontent.entity.User;
 import com.example.servingwebcontent.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 @Controller
@@ -29,6 +32,12 @@ public class UsersController {
         model.addAttribute("users", user);
         return "users";
         }
+    }
+    @ResponseBody
+    @GetMapping("/myName")
+    public String myName() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
+        return auth.getName();
     }
 }

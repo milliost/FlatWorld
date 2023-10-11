@@ -1,16 +1,16 @@
 package com.example.servingwebcontent.model;
 
-import com.example.servingwebcontent.events.CustomSpringEvent;
 import com.example.servingwebcontent.model.Cards.Card;
 import com.example.servingwebcontent.model.heroes.HeroType;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 @Getter
 @Setter
+@Component
 public class Player{
 
     private String name;
@@ -18,5 +18,4 @@ public class Player{
     private ArrayList<Card> cards;
     private String debuffs;
     private HeroType heroType;
-
 }

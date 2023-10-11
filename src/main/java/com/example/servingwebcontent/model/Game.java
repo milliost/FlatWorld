@@ -1,23 +1,24 @@
 package com.example.servingwebcontent.model;
 
-import com.example.servingwebcontent.controllers.GameController;
+import com.example.servingwebcontent.controllers.game.LobbyController;
 import com.example.servingwebcontent.entity.User;
-import com.example.servingwebcontent.events.CustomSpringEvent;
+import com.example.servingwebcontent.model.Cards.Card;
+import com.example.servingwebcontent.model.Cards.CardActions;
 import com.example.servingwebcontent.model.heroes.HeroType;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Getter
 @Setter
 public class Game{
-    private static final Logger logger = LoggerFactory.getLogger(GameController.class);
+    private final static long id = 0;
+    private static final Logger logger = LoggerFactory.getLogger(LobbyController.class);
     private Player[] players;
-    private int card;
+    private ActionsOfPlayers actionsOfPlayers;
     public Game(User[] users){
 
         players = new Player[users.length];
@@ -33,17 +34,16 @@ public class Game{
         }
     }
 
-    public Player start(){
-        while (true) {
-            for (Player turnPlayer : players) {
-                if (turnPlayer.getHeroType().win(
-                        turnPlayer.getHeroType(),
-                        players.length,
-                        0)) {
-                    return turnPlayer;
-                } else {
-                    We
-                    logger.info("ход сделан");
+    public void start(){
+        actionsOfPlayers.startGame();
+    }
+
+    public void playCard(Card card){
+        for(CardActions action : card.returnActions()){
+            if(action==null){break;}
+            else {
+                switch (action){
+                    case SERVITOR -> actionsOfPlayers.
                 }
             }
         }
@@ -73,8 +73,5 @@ public class Game{
             }
         }
         return HeroType.CHRYSOPRASE;
-    }
-    private void addHeroes(){
-
     }
 }

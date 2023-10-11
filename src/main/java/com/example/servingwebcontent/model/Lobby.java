@@ -8,15 +8,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-
 
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class GameTable {
+public class Lobby {
     private UserService us;
     private User[] chairs = new User[5];
 
