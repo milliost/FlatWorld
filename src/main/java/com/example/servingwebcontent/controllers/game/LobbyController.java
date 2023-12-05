@@ -1,11 +1,11 @@
 package com.example.servingwebcontent.controllers.game;
 
 import com.example.servingwebcontent.entity.User;
-import com.example.servingwebcontent.model.ChatMessage;
-import com.example.servingwebcontent.model.Game;
-import com.example.servingwebcontent.model.Lobby;
+import com.example.servingwebcontent.model.games.flatWorld.ChatMessage;
+import com.example.servingwebcontent.model.games.flatWorld.Game;
+import com.example.servingwebcontent.model.games.flatWorld.flatWorldService.LobbyService;
 import com.example.servingwebcontent.service.UserService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -13,11 +13,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 @Controller
-@AllArgsConstructor
 public class LobbyController {
     private UserService us;
-    private Lobby gameTable;
+    private LobbyService ls;
+    private GameController gc;
+
+    public LobbyController(UserService us, LobbyService ls){
+        this.us = us;
+        this.ls = ls;
+    }
 
     @GetMapping("/game")
     public String game() {
@@ -25,35 +31,16 @@ public class LobbyController {
     }
 
     @ResponseBody
-    @GetMapping("/kek")
+    @GetMapping("/history")
     public String kek() {
-        return gameTable.toString();
-    }
-
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-        return chatMessage;
+        return ls.toString();
     }
     @MessageMapping("/chat.addUser")
     @SendTo("/topic/public")
     public ChatMessage addUser(@Payload ChatMessage chatMessage) {
-
-        for(int i=0; i<gameTable.getChairs().length;i++){ //проверка на юзера в массиве
-            User usr = gameTable.getChairs()[i];
-            if(usr!=null){
-                if(chatMessage.getSender().equals(usr.toString())){return chatMessage;}
-            }
-        }
-
-        for(int i=0; i<gameTable.getChairs().length;i++){ //если юзер не найден ему выделяется первое свободное место в массиве
-            User usr = gameTable.getChairs()[i];
-            if(usr==null){
-                gameTable.sitOnChair(i,us.findByName(chatMessage.getSender()));
-                return chatMessage;
-            }
-        }
-
+        chatMessage.setType(ChatMessage.MessageType.JOIN);
+        chatMessage.setSender("Сервер");
+        chatMessage.setContent(chatMessage.getSender()+": подключился к игре");
         return chatMessage;
     }
 
@@ -63,39 +50,28 @@ public class LobbyController {
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.setType(ChatMessage.MessageType.HISTORY);
         chatMessage.setSender("Server");
-        chatMessage.setContent(gameTable.toString());
+        chatMessage.setContent(ls.toString());
         return chatMessage;
     }
 
     @MessageMapping("/chat.start")
     @SendTo("/topic/public")
-    public ChatMessage start(@Payload ChatMessage chatMessage) throws InterruptedException {
-        Game game = new Game(gameTable.makeUserArrayForGame());
-        game.start();
+    public ChatMessage start(@Payload ChatMessage chatMessage) {
+        Game game = new Game(ls.makeUserArrayForGame());
+        gc = new GameController(game);
         return chatMessage;
     }
-    @MessageMapping("/chat.chair")
+    @MessageMapping("/chat.sit")
     @SendTo("/topic/public")
-    public ChatMessage sit2(@Payload ChatMessage chatMessage) {
-        String[] buttons  = {"button1", "button2", "button3", "button4"};
+    public ChatMessage sit(@Payload ChatMessage chatMessage) {
 
-        for(int i=0; i<gameTable.getChairs().length;i++){ //освободить стул
-            User usr = gameTable.getChairs()[i];
-            if(usr!=null){
-                if(chatMessage.getSender().equals(usr.getName())){gameTable.upChair(i);}
-            }
-        }
+        User callingPlayer = us.findByName(chatMessage.getSender());
+        int numOfChair = Integer.parseInt(chatMessage.getContent().replaceAll("[a-z]",""));
 
-        for(int i = 0; i<buttons.length; i++){ //сесть на стул
-            if(chatMessage.getContent().equals(buttons[i])){
-                gameTable.sitOnChair(i,us.findByName(chatMessage.getSender()));
-            }
-        }
+        ls.upChair(callingPlayer);
+        ls.sitOnChair(numOfChair, callingPlayer);
         return chatMessage;
     }
-
-
-
 }
 
 

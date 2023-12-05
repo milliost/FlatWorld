@@ -1,7 +1,7 @@
-package com.example.servingwebcontent.model.Cards.Green;
+package com.example.servingwebcontent.model.games.flatWorld.cards.Green;
 
-import com.example.servingwebcontent.model.Cards.CardActions;
-import com.example.servingwebcontent.model.Cards.Card;
+import com.example.servingwebcontent.model.games.flatWorld.CardActions;
+import com.example.servingwebcontent.model.games.flatWorld.cards.Card;
 import org.springframework.stereotype.Component;
 
 @Component

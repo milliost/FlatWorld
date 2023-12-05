@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.model;
+package com.example.servingwebcontent.model.games.flatWorld;
 
 import lombok.Getter;
 import lombok.Setter;

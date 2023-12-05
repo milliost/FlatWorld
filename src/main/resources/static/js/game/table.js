@@ -119,7 +119,7 @@ function but(event){
             type: 'SIT'
 
         };
-        stompClient.send("/app/chat.chair", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/chat.sit", {}, JSON.stringify(chatMessage));
 
     }
     event.preventDefault();

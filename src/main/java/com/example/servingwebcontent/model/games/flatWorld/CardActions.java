@@ -1,8 +1,4 @@
-package com.example.servingwebcontent.model.Cards;
-
-import org.springframework.stereotype.Component;
-
-@Component
+package com.example.servingwebcontent.model.games.flatWorld;
 public enum CardActions {
     SERVITOR,
     HOME,

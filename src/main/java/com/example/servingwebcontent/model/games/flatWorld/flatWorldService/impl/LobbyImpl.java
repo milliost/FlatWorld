@@ -1,6 +1,7 @@
-package com.example.servingwebcontent.model;
+package com.example.servingwebcontent.model.games.flatWorld.flatWorldService.impl;
 
 import com.example.servingwebcontent.entity.User;
+import com.example.servingwebcontent.model.games.flatWorld.flatWorldService.LobbyService;
 import com.example.servingwebcontent.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,17 +15,21 @@ import org.springframework.stereotype.Service;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Lobby {
+public class LobbyImpl implements LobbyService {
+
     private UserService us;
     private User[] chairs = new User[5];
 
-    public void sitOnChair(int numOfChair,User user){
+    public void sitOnChair(int numOfChair, User user){
         int chairNow = getChair(user); //выдает -1 когда юзер только подключился
         if(chairNow!=-1){chairs[chairNow]=null;} //проверка на -1
-        chairs[numOfChair]=user;
+        chairs[numOfChair-1]=user;
     }
-    public void upChair(int numOfChair){
-        chairs[numOfChair]=null;
+    public void upChair(User userName){
+        int idOfChair = getChair(userName);
+        if(idOfChair!=-1){
+            chairs[idOfChair]=null;
+        }
     }
     public User[] makeUserArrayForGame(){
 
@@ -48,8 +53,9 @@ public class Lobby {
         return userArrayForGame;
     }
     private int getChair(User user){
+        String secondName =user.getUsername();
         for(int i=0; i<chairs.length; i++){
-            if(chairs[i]!=null && chairs[i]==user){
+            if(chairs[i]!=null && chairs[i].getUsername().equals(secondName)){
                 return i;
             }
         }

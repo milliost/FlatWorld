@@ -1,7 +1,6 @@
-package com.example.servingwebcontent.model.heroes;
+package com.example.servingwebcontent.model.games.flatWorld.heroes;
 
 import lombok.Getter;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;

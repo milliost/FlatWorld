@@ -1,16 +1,14 @@
 package com.example.servingwebcontent.config;
 
-import com.example.servingwebcontent.model.ChatMessage;
+import com.example.servingwebcontent.model.games.flatWorld.ChatMessage;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.SessionEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.mvc.method.annotation.SessionAttributeMethodArgumentResolver;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 

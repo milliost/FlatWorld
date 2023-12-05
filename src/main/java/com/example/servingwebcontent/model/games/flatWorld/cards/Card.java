@@ -1,5 +1,6 @@
-package com.example.servingwebcontent.model.Cards;
+package com.example.servingwebcontent.model.games.flatWorld.cards;
 
+import com.example.servingwebcontent.model.games.flatWorld.CardActions;
 import lombok.Setter;
 
 @Setter
