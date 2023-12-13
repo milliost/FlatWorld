@@ -23,6 +23,7 @@ public class Player{
         this.name=name;
         this.heroType=heroType;
     }
+
     public void transferFunds(int money){
         this.money=this.money + money;
     }
@@ -32,6 +33,7 @@ public class Player{
     public void swapHero(HeroType heroType){
         this.heroType=heroType;
     }
+    public Card getCardByIndex(int index){return cards.get(index);}
     public void addCard(Card card){
         cards.add(card);
     }

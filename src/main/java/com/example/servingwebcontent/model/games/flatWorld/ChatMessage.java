@@ -14,7 +14,10 @@ public class ChatMessage {
         JOIN,
         SIT,
         LEAVE,
-        HISTORY
+        HISTORY,
+        ENDTURN,
+        PLAYCARD,
+        DISTRICKT
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.servingwebcontent.model.games.flatWorld;
 
 import com.example.servingwebcontent.controllers.game.LobbyController;
 import com.example.servingwebcontent.entity.User;
+import com.example.servingwebcontent.model.games.flatWorld.cards.Card;
 import com.example.servingwebcontent.model.games.flatWorld.cards.Deck;
 import com.example.servingwebcontent.model.games.flatWorld.entities.Entity;
 import com.example.servingwebcontent.model.games.flatWorld.entities.evilEntity.Demon;
@@ -13,8 +14,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.parameters.P;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -38,7 +41,7 @@ public class Game {
                     users[i].getName(),
                     getRandomHero(players.length, heroesPool));
 
-            while (players[i].quantityCard()<5) players[i].addCard(deck.takeCard());
+            while (players[i].quantityCard() < 5) players[i].addCard(deck.takeCard());
 
             logger.info(players[i].getHeroType().getName());
             logger.info(players[i].arrayOfCards());
@@ -96,14 +99,14 @@ public class Game {
         }
     }
 
-    public void playCard(ChatMessage cm) {
-        if (turn.itIsMyTurn(cm.getSender())) {
-            int numberOfCard = Integer.parseInt(cm.getContent());
-            String sender = cm.getSender();
-            getPlayerByName(sender).getCards();
+    public void playCard(String player, int cardIndexFromThePlayersHand) {
+        for (Player player1 : players) {
+            if (player1.getName().equals(player)) {
+                Card playedCard = player1.getCardByIndex(cardIndexFromThePlayersHand);
+
+            }
 
         }
-
     }
 
     private Player getPlayerByName(String name) {
