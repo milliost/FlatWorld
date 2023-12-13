@@ -1,5 +1,6 @@
 package com.example.servingwebcontent.model.games.flatWorld.heroes;
 
+import com.example.servingwebcontent.model.games.flatWorld.Player;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public enum HeroType implements winer{
     }
 
     @Override
-    public boolean win(HeroType hero, int players, int param) {
-         switch (hero){
+    public boolean win(Player player, int param, int players) {
+         switch (player.getHeroType()){
              case CHRYSOPRASE ->{return param>=50;}
              case DRAGON ->{return param>=8;}
              case VETINARI ->

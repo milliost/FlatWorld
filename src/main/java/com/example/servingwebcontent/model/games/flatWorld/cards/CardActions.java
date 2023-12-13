@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.model.games.flatWorld;
+package com.example.servingwebcontent.model.games.flatWorld.cards;
 public enum CardActions {
     SERVITOR,
     HOME,
@@ -6,5 +6,6 @@ public enum CardActions {
     KILL,
     CATACLYSME,
     NEXTCARD,
-    PROPERTY
+    PROPERTY,
+    POLICE
 }

@@ -1,27 +1,33 @@
 package com.example.servingwebcontent.model.games.flatWorld.flatWorldService.impl;
 
+import com.example.servingwebcontent.model.games.flatWorld.Player;
 import com.example.servingwebcontent.model.games.flatWorld.flatWorldService.Turn;
+import java.util.Hashtable;
+import java.util.Map;
 
 public class TurnInFlatWorldImpl implements Turn {
-    private int numOfPlayers;
-    private boolean[] turn;
+    private Map<Player, Boolean> turn;
+    private Player[] players;
 
-    public TurnInFlatWorldImpl(int numOfPlayers, int firstPlayer){
-        this.numOfPlayers=numOfPlayers;
-        turn = new boolean[numOfPlayers];
-        firstTurnPlayer(firstPlayer);
+    public TurnInFlatWorldImpl(Player[] players, Player firstPlayer){
+        this.players = players;
+        turn = new Hashtable<>();
+        for (Player player : players) {
+            turn.put(player, false);
+        }
+        turn.put(firstPlayer,true);
     }
 
     @Override
     public void nextTurn() {
-        for (int i = 0; i<numOfPlayers; i++){
-            if(turn[i] ) {
-                turn[i]=false;
-                if(i==numOfPlayers-1){
-                    turn[0]=true;
+        for (int i = 0; i< players.length; i++){
+            if(turn.get(players[i])) {
+                turn.put(players[i],false);
+                if(i==players.length-1){
+                    turn.put(players[0],true);
                     break;
                 }else {
-                    turn[i + 1] = true;
+                    turn.put(players[i + 1],true);
                     break;
                 }
             }
@@ -29,13 +35,10 @@ public class TurnInFlatWorldImpl implements Turn {
     }
 
     @Override
-    public boolean itIsMyTurn(int numOfPlayer) {
-        if(numOfPlayer!=-1){
-            return turn[numOfPlayer];
-        }else return false;
-    }
-
-    private void firstTurnPlayer(int firstPlayer){
-        turn[firstPlayer] = true;
+    public boolean itIsMyTurn(String userName) {
+        for (Player player : players) {
+            if (player.getName().equals(userName) && turn.get(player)) return true;
+        }
+        return false;
     }
 }
