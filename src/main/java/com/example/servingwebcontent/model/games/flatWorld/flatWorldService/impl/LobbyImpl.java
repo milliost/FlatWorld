@@ -1,76 +1,55 @@
 package com.example.servingwebcontent.model.games.flatWorld.flatWorldService.impl;
 
-import com.example.servingwebcontent.entity.User;
-import com.example.servingwebcontent.model.games.flatWorld.flatWorldService.LobbyService;
-import com.example.servingwebcontent.service.UserService;
+import com.example.servingwebcontent.model.games.abstraction.Player;
+import com.example.servingwebcontent.model.games.abstraction.LobbyService;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
 
+/**
+ * Класс собирает будующих игроков
+ */
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 public class LobbyImpl implements LobbyService {
 
-    private UserService us;
-    private User[] chairs = new User[5];
+    private List<String> names;
 
-    public void sitOnChair(int numOfChair, User user){
-        int chairNow = getChair(user); //выдает -1 когда юзер только подключился
-        if(chairNow!=-1){chairs[chairNow]=null;} //проверка на -1
-        chairs[numOfChair-1]=user;
+
+    /**
+     * чтобы сесть на стул нужно встать с предыдущего, если ты вообще сидишь
+     *
+     * @param numOfChair номер стула
+     * @param name       имя игрока севшего на него
+     */
+    public void sitOnChair(int numOfChair, String name) {
+        upChair(name);
+        names.add(numOfChair, name);
     }
-    public void upChair(User userName){
-        int idOfChair = getChair(userName);
-        if(idOfChair!=-1){
-            chairs[idOfChair]=null;
-        }
-    }
-    public User[] makeUserArrayForGame(){
 
-        int k =0;
-        for (User user : chairs) {
-            if (user != null) k++;
-        }
-
-        User[] userArrayForGame = new User[k];
-
-        int i = 0;
-        for (User chair : chairs) {
-
-            if (chair != null) {
-                userArrayForGame[i] = chair;
-                i++;
-            }
-
-        }
-
-        return userArrayForGame;
-    }
-    private int getChair(User user){
-        String secondName =user.getUsername();
-        for(int i=0; i<chairs.length; i++){
-            if(chairs[i]!=null && chairs[i].getUsername().equals(secondName)){
-                return i;
-            }
-        }
-        return -1;
-    }
     @Override
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
-        for (int i=0; i<chairs.length; i++){
-            sb.append(i).append(" ");
-            if(chairs[i]!=null){
-                sb.append(chairs[i].getName()).append(" ");
-            }else sb.append("null ");
-        }
-        return sb.toString();
+    public String toString() {
+        return names.toString();
     }
+
+    public Player[] makePlayerArrayForGame() {
+        Player[] players = new Player[names.size()];
+        for (int i = 0; i < names.size(); i++) {
+            players[i].setName(names.get(i));
+        }
+
+        return players;
+    }
+
+    private void upChair(String name) {
+        int idOfChair = names.indexOf(name);
+        if (idOfChair != -1) {
+            names.remove(idOfChair);
+        }
+    }
+
+
 }
 

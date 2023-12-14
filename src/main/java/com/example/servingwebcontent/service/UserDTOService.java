@@ -1,10 +1,9 @@
 package com.example.servingwebcontent.service;
 
 import com.example.servingwebcontent.entity.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-public interface UserService {
+public interface UserDTOService {
     void saveUser(User user);
 
     User findUserByEmail(String email);

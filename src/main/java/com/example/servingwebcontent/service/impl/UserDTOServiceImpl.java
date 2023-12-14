@@ -4,21 +4,17 @@ import com.example.servingwebcontent.entity.Role;
 import com.example.servingwebcontent.entity.User;
 import com.example.servingwebcontent.repository.RoleRepository;
 import com.example.servingwebcontent.repository.UserRepository;
-import com.example.servingwebcontent.service.UserService;
+import com.example.servingwebcontent.service.UserDTOService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @AllArgsConstructor
 @Component
-public class UserServiceImpl implements UserService {
+public class UserDTOServiceImpl implements UserDTOService {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;

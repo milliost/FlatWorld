@@ -1,33 +1,33 @@
 package com.example.servingwebcontent.model.games.flatWorld.flatWorldService.impl;
 
-import com.example.servingwebcontent.model.games.flatWorld.Player;
-import com.example.servingwebcontent.model.games.flatWorld.flatWorldService.Turn;
+import com.example.servingwebcontent.model.games.flatWorld.FlatWorldPlayer;
+import com.example.servingwebcontent.model.games.flatWorld.flatWorldService.CanPlayerDoAction;
 import java.util.Hashtable;
 import java.util.Map;
 
-public class TurnInFlatWorldImpl implements Turn {
-    private Map<Player, Boolean> turn;
-    private Player[] players;
+public class TurnInFlatWorldImpl implements CanPlayerDoAction {
+    private Map<FlatWorldPlayer, Boolean> turn;
+    private FlatWorldPlayer[] flatWorldPlayers;
 
-    public TurnInFlatWorldImpl(Player[] players, Player firstPlayer){
-        this.players = players;
+    public TurnInFlatWorldImpl(FlatWorldPlayer[] flatWorldPlayers, FlatWorldPlayer firstFlatWorldPlayer){
+        this.flatWorldPlayers = flatWorldPlayers;
         turn = new Hashtable<>();
-        for (Player player : players) {
-            turn.put(player, false);
+        for (FlatWorldPlayer flatWorldPlayer : flatWorldPlayers) {
+            turn.put(flatWorldPlayer, false);
         }
-        turn.put(firstPlayer,true);
+        turn.put(firstFlatWorldPlayer,true);
     }
 
     @Override
     public void nextTurn() {
-        for (int i = 0; i< players.length; i++){
-            if(turn.get(players[i])) {
-                turn.put(players[i],false);
-                if(i==players.length-1){
-                    turn.put(players[0],true);
+        for (int i = 0; i< flatWorldPlayers.length; i++){
+            if(turn.get(flatWorldPlayers[i])) {
+                turn.put(flatWorldPlayers[i],false);
+                if(i== flatWorldPlayers.length-1){
+                    turn.put(flatWorldPlayers[0],true);
                     break;
                 }else {
-                    turn.put(players[i + 1],true);
+                    turn.put(flatWorldPlayers[i + 1],true);
                     break;
                 }
             }
@@ -36,8 +36,8 @@ public class TurnInFlatWorldImpl implements Turn {
 
     @Override
     public boolean itIsMyTurn(String userName) {
-        for (Player player : players) {
-            if (player.getName().equals(userName) && turn.get(player)) return true;
+        for (FlatWorldPlayer flatWorldPlayer : flatWorldPlayers) {
+            if (flatWorldPlayer.getName().equals(userName) && turn.get(flatWorldPlayer)) return true;
         }
         return false;
     }

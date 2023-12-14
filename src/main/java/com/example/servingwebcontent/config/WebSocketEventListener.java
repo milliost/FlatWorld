@@ -20,7 +20,7 @@ public class WebSocketEventListener {
     private SimpMessageSendingOperations messagingTemplate;
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
-        logger.info("Received a new web socket connection");
+        logger.info("Новый пользователь подключился");
     }
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {

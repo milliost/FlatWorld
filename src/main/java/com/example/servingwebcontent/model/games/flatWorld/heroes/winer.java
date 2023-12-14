@@ -1,7 +1,7 @@
 package com.example.servingwebcontent.model.games.flatWorld.heroes;
 
-import com.example.servingwebcontent.model.games.flatWorld.Player;
+import com.example.servingwebcontent.model.games.flatWorld.FlatWorldPlayer;
 
 public interface winer{
-    boolean win(Player player,int param, int numberOfPlayers);
+    boolean win(FlatWorldPlayer flatWorldPlayer, int param, int numberOfPlayers);
 }

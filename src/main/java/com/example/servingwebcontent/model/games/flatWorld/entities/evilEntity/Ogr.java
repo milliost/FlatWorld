@@ -1,6 +1,5 @@
 package com.example.servingwebcontent.model.games.flatWorld.entities.evilEntity;
 
-import com.example.servingwebcontent.model.games.flatWorld.Player;
 import com.example.servingwebcontent.model.games.flatWorld.entities.Entity;
 import com.example.servingwebcontent.model.games.flatWorld.entities.EntityType;
 

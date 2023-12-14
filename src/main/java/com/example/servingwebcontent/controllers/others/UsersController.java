@@ -1,7 +1,7 @@
 package com.example.servingwebcontent.controllers.others;
 
 import com.example.servingwebcontent.entity.User;
-import com.example.servingwebcontent.service.UserService;
+import com.example.servingwebcontent.service.UserDTOService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UsersController {
 
-    private UserService userService;
+    private UserDTOService userService;
     @GetMapping("/users")
     public String users(Model model){
         List<User> users = userService.findAllUsers();

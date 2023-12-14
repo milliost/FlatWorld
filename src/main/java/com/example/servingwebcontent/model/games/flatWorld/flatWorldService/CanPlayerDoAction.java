@@ -1,8 +1,6 @@
 package com.example.servingwebcontent.model.games.flatWorld.flatWorldService;
 
-import com.example.servingwebcontent.model.games.flatWorld.Player;
-
-public interface Turn {
+public interface CanPlayerDoAction {
     void nextTurn();
     boolean itIsMyTurn(String player);
 }

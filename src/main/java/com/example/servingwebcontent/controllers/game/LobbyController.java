@@ -1,11 +1,9 @@
 package com.example.servingwebcontent.controllers.game;
 
-import com.example.servingwebcontent.entity.User;
 import com.example.servingwebcontent.model.games.flatWorld.ChatMessage;
-import com.example.servingwebcontent.model.games.flatWorld.Game;
+import com.example.servingwebcontent.model.games.flatWorld.FlatWorldGame;
 import com.example.servingwebcontent.model.games.flatWorld.comandHandler.TextCommandHandler;
-import com.example.servingwebcontent.model.games.flatWorld.flatWorldService.LobbyService;
-import com.example.servingwebcontent.service.UserService;
+import com.example.servingwebcontent.model.games.abstraction.LobbyService;
 import lombok.AllArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class LobbyController {
 
-    private UserService us;
     private LobbyService ls;
 
     @GetMapping("/game")
@@ -35,8 +32,7 @@ public class LobbyController {
     @SendTo("/topic/public")
     public ChatMessage addUser(@Payload ChatMessage chatMessage) {
         chatMessage.setType(ChatMessage.MessageType.JOIN);
-        chatMessage.setSender("Сервер");
-        chatMessage.setContent(chatMessage.getSender()+": подключился к игре");
+        chatMessage.setContent(": подключился к игре");
         return chatMessage;
     }
 
@@ -53,8 +49,8 @@ public class LobbyController {
     @MessageMapping("/chat.start")
     @SendTo("/topic/public")
     public ChatMessage start(@Payload ChatMessage chatMessage) {
-        Game game = new Game(ls.makeUserArrayForGame());
-        new GameController(new TextCommandHandler(game));
+        FlatWorldGame flatWorldGame = new FlatWorldGame(ls.makePlayerArrayForGame());
+        new GameController(new TextCommandHandler(flatWorldGame));
         chatMessage.setContent(chatMessage.getSender() + "начал игру");
         return chatMessage;
     }
@@ -62,10 +58,8 @@ public class LobbyController {
     @SendTo("/topic/public")
     public ChatMessage sit(@Payload ChatMessage chatMessage) {
 
-        User callingPlayer = us.findByName(chatMessage.getSender());
+        String callingPlayer = chatMessage.getSender();
         int numOfChair = Integer.parseInt(chatMessage.getContent().replaceAll("[a-z]",""));
-
-        ls.upChair(callingPlayer);
         ls.sitOnChair(numOfChair, callingPlayer);
         return chatMessage;
     }

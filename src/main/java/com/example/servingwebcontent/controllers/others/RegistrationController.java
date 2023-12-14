@@ -1,7 +1,7 @@
 package com.example.servingwebcontent.controllers.others;
 
 import com.example.servingwebcontent.entity.User;
-import com.example.servingwebcontent.service.UserService;
+import com.example.servingwebcontent.service.UserDTOService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class RegistrationController {
 
-    private UserService userService;
+    private UserDTOService userService;
 
     @GetMapping()
     public String registration(){
