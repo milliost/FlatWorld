@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class LobbyImpl implements LobbyService {
 
-    private List<String> names;
+    private List<String> names;//ошибка
 
 
     /**
