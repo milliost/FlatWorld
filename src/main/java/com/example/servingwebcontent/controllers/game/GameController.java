@@ -1,6 +1,6 @@
 package com.example.servingwebcontent.controllers.game;
 
-import com.example.servingwebcontent.model.games.flatWorld.ChatMessage;
+import com.example.servingwebcontent.model.games.abstraction.ChatMessage;
 import com.example.servingwebcontent.model.games.flatWorld.comandHandler.TextCommandHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;

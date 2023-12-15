@@ -1,6 +1,6 @@
 package com.example.servingwebcontent.controllers.game;
 
-import com.example.servingwebcontent.model.games.flatWorld.ChatMessage;
+import com.example.servingwebcontent.model.games.abstraction.ChatMessage;
 import com.example.servingwebcontent.model.games.flatWorld.FlatWorldGame;
 import com.example.servingwebcontent.model.games.flatWorld.comandHandler.TextCommandHandler;
 import com.example.servingwebcontent.model.games.abstraction.LobbyService;
@@ -57,11 +57,11 @@ public class LobbyController {
     @MessageMapping("/chat.sit")
     @SendTo("/topic/public")
     public ChatMessage sit(@Payload ChatMessage chatMessage) {
-
         String callingPlayer = chatMessage.getSender();
         int numOfChair = Integer.parseInt(chatMessage.getContent().replaceAll("[a-z]",""));
         ls.sitOnChair(numOfChair, callingPlayer);
-        return chatMessage;
+
+        return history();
     }
 }
 

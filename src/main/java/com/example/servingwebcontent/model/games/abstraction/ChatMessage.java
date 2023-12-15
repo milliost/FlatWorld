@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.model.games.flatWorld;
+package com.example.servingwebcontent.model.games.abstraction;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +13,7 @@ public class ChatMessage {
         CHAT,
         JOIN,
         SIT,
+        START,
         LEAVE,
         HISTORY,
         ENDTURN,

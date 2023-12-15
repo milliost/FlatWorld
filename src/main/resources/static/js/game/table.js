@@ -38,7 +38,7 @@
     let row_2 = document.createElement('tr');
     let row_2_data_1 = document.createElement('td');
     row_2_data_1.innerHTML =    "<form action=\"listReferred\" method=\"get\">"+
-                                "<input class=\"cellbut\" type=\"button\" id=\"button1\" value=\"1\"/>"+
+                                "<input class=\"cellbut\" type=\"button\" id=\"button0\" value=\"0\"/>"+
                                  "</form>";
     let row_2_data_2 = document.createElement('td');
     row_2_data_2.innerHTML = "James Clerk";
@@ -55,7 +55,7 @@
     let row_3 = document.createElement('tr');
     let row_3_data_1 = document.createElement('td');
     row_3_data_1.innerHTML =    "<form action=\"listReferred\" method=\"get\">"+
-                                "<input class=\"cellbut\" type=\"button\" id=\"button2\" value=\"2\"/>"+
+                                "<input class=\"cellbut\" type=\"button\" id=\"button1\" value=\"1\"/>"+
                                 "</form>";
     let row_3_data_2 = document.createElement('td');
     row_3_data_2.innerHTML = "Adam White";
@@ -70,7 +70,7 @@
     let row_4 = document.createElement('tr');
     let row_4_data_1 = document.createElement('td');
     row_4_data_1.innerHTML =    "<form action=\"listReferred\" method=\"get\">"+
-                                "<input class=\"cellbut\" type=\"button\" id=\"button3\" value=\"3\"/>"+
+                                "<input class=\"cellbut\" type=\"button\" id=\"button2\" value=\"2\"/>"+
                                 "</form>";
     let row_4_data_2 = document.createElement('td');
     row_4_data_2.innerHTML = "Adam White";
@@ -85,7 +85,7 @@
     let row_5 = document.createElement('tr');
     let row_5_data_1 = document.createElement('td');
     row_5_data_1.innerHTML =    "<form action=\"listReferred\" method=\"get\">"+
-                                "<input class=\"cellbut\" type=\"button\" id=\"button4\" value=\"4\"/>"+
+                                "<input class=\"cellbut\" type=\"button\" id=\"button3\" value=\"3\"/>"+
                                 "</form>";
     let row_5_data_2 = document.createElement('td');
     row_5_data_2.innerHTML = "Adam White";
@@ -98,10 +98,10 @@
     tbody.appendChild(row_5);
 
     var buttonStart=document.querySelector('#buttonStart');
-    var button1=document.querySelector('#button1');
-    var button2=document.querySelector('#button2');
-    var button3=document.querySelector('#button3');
-    var button4=document.querySelector('#button4');
+    var button1=document.querySelector('#button0');
+    var button2=document.querySelector('#button1');
+    var button3=document.querySelector('#button2');
+    var button4=document.querySelector('#button3');
 
     buttonStart.addEventListener('click',start,false)
     button1.addEventListener('click',but,false)
@@ -130,7 +130,7 @@ function start(event){
         var chatMessage = {
             sender: username,
             content: event.target.id,
-            type: 'SIT'
+            type: 'START'
 
         };
         stompClient.send("/app/chat.start", {}, JSON.stringify(chatMessage));

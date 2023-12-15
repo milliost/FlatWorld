@@ -1,6 +1,6 @@
 package com.example.servingwebcontent.model.games.flatWorld.comandHandler;
 
-import com.example.servingwebcontent.model.games.flatWorld.ChatMessage;
+import com.example.servingwebcontent.model.games.abstraction.ChatMessage;
 import com.example.servingwebcontent.model.games.flatWorld.FlatWorldGame;
 import com.example.servingwebcontent.model.games.flatWorld.flatWorldService.CanPlayerDoAction;
 

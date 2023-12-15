@@ -48,33 +48,16 @@ function onMessageReceived(payload) {
 
     }else if(message.type === 'HISTORY'){
         var conT = message.content;
-        let array = conT.split(" ");
-        for(let i=0; i<array.length;i=i+2){
-            let num = array[i];
-            let name = array[i+1]
-            tableName(parseInt(num),name);
+        let array = conT
+            .replaceAll(',','')
+            .replace('[','')
+            .replace(']','')
+            .split(" ");
+        for(let i=0; i<array.length;i++){
+            tableName(i,array[i]);
         }
         messageElement.classList.add('event-message');
 
-    } else if (message.type === 'SIT') {
-
-        if(message.content==="button1"){
-            tableName(0,message.sender);
-            message.content = message.sender + ' sit1!';
-            messageElement.classList.add('event-message');
-        }else if(message.content==="button2"){
-            tableName(1,message.sender);
-            message.content = message.sender + ' sit2!';
-            messageElement.classList.add('event-message');
-        }else if(message.content==="button3") {
-            tableName(2,message.sender);
-            message.content = message.sender + ' sit3!';
-            messageElement.classList.add('event-message');
-        }else {
-            tableName(3,message.sender);
-            message.content = message.sender + ' sit4!';
-            messageElement.classList.add('event-message');
-        }
 
     } else {
         messageElement.classList.add('chat-message');

@@ -1,6 +1,6 @@
 package com.example.servingwebcontent.config;
 
-import com.example.servingwebcontent.model.games.flatWorld.ChatMessage;
+import com.example.servingwebcontent.model.games.abstraction.ChatMessage;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
