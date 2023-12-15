@@ -38,7 +38,7 @@
     let row_2 = document.createElement('tr');
     let row_2_data_1 = document.createElement('td');
     row_2_data_1.innerHTML =    "<form action=\"listReferred\" method=\"get\">"+
-                                "<input class=\"cellbut\" type=\"button\" id=\"button0\" value=\"0\"/>"+
+                                "<input class=\"cellbut\" type=\"button\" id=\"button0\" value=\"сесть\"/>"+
                                  "</form>";
     let row_2_data_2 = document.createElement('td');
     row_2_data_2.innerHTML = "James Clerk";
@@ -55,7 +55,7 @@
     let row_3 = document.createElement('tr');
     let row_3_data_1 = document.createElement('td');
     row_3_data_1.innerHTML =    "<form action=\"listReferred\" method=\"get\">"+
-                                "<input class=\"cellbut\" type=\"button\" id=\"button1\" value=\"1\"/>"+
+                                "<input class=\"cellbut\" type=\"button\" id=\"button1\" value=\"сесть\"/>"+
                                 "</form>";
     let row_3_data_2 = document.createElement('td');
     row_3_data_2.innerHTML = "Adam White";
@@ -70,7 +70,7 @@
     let row_4 = document.createElement('tr');
     let row_4_data_1 = document.createElement('td');
     row_4_data_1.innerHTML =    "<form action=\"listReferred\" method=\"get\">"+
-                                "<input class=\"cellbut\" type=\"button\" id=\"button2\" value=\"2\"/>"+
+                                "<input class=\"cellbut\" type=\"button\" id=\"button2\" value=\"сесть\"/>"+
                                 "</form>";
     let row_4_data_2 = document.createElement('td');
     row_4_data_2.innerHTML = "Adam White";
@@ -85,7 +85,7 @@
     let row_5 = document.createElement('tr');
     let row_5_data_1 = document.createElement('td');
     row_5_data_1.innerHTML =    "<form action=\"listReferred\" method=\"get\">"+
-                                "<input class=\"cellbut\" type=\"button\" id=\"button3\" value=\"3\"/>"+
+                                "<input class=\"cellbut\" type=\"button\" id=\"button3\" value=\"сесть\"/>"+
                                 "</form>";
     let row_5_data_2 = document.createElement('td');
     row_5_data_2.innerHTML = "Adam White";

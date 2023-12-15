@@ -54,6 +54,7 @@ function onMessageReceived(payload) {
             .replace(']','')
             .split(" ");
         for(let i=0; i<array.length;i++){
+            if(array[i]==="null") array[i]="свободно"
             tableName(i,array[i]);
         }
         messageElement.classList.add('event-message');
