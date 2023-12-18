@@ -5,10 +5,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ChatMessage {
+public abstract class ChatMessage {
     private MessageType type;
     private String content;
     private String sender;
+    public ChatMessage(){
+
+    }
     public enum MessageType {
         CHAT,
         JOIN,

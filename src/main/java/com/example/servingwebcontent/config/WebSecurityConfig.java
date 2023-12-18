@@ -32,8 +32,8 @@ public class WebSecurityConfig {
                         .requestMatchers(
                                 "/",
                                 "/registration",
-                                "/css/{code}.css",
-                                "/js/{code}.js",
+                                "/css/registration.css",
+                                "/js/registration.js",
                                 "/registration/{code}",
                                 "/img/favicon.ico").permitAll()
                         .anyRequest().authenticated()

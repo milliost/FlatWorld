@@ -14,7 +14,8 @@ name.oninput = function() {
     checkNames(document.getElementById("name").value);
 }
 function checkNames(value) {
-    let url = "http://localhost:8080/registration/checkName?name=" + value;
+
+    let url = "http://94.19.137.150/registration/checkName?name=" + value;
     let request = new XMLHttpRequest();
     request.open("GET", url);
     request.responseType = "text";
