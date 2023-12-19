@@ -2,6 +2,8 @@ package com.example.servingwebcontent.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.socket.config.annotation.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
@@ -14,7 +16,6 @@ public class WebSocketConfig extends TextWebSocketHandler implements WebSocketMe
     }
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.setApplicationDestinationPrefixes("/app");
-        registry.enableSimpleBroker("/topic");
+        registry.enableSimpleBroker("/lobbies");
     }
 }
