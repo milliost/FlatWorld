@@ -32,10 +32,10 @@ public class WebSecurityConfig {
                         .requestMatchers(
                                 "/",
                                 "/registration",
-                                "/css/registration.css",
-                                "/js/registration.js",
                                 "/registration/{code}",
-                                "/img/favicon.ico").permitAll()
+                                "js/{code}.js",
+                                "/css/{code}.css",
+                                "/img/{code}.ico").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class ChatMessage {
+public class ChatMessage {
     private MessageType type;
     private String content;
     private String sender;
@@ -21,7 +21,7 @@ public abstract class ChatMessage {
         HISTORY,
         ENDTURN,
         PLAYCARD,
-        DISTRICKT
+        CREATE, DISTRICKT
     }
 
 }

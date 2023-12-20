@@ -5,6 +5,34 @@
     <title>Список лобби</title>
 </head>
 <body>
-
+<div>
+    <div>
+        <h2>Список лобби</h2>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>Присоедениться</th>
+            <th>Имя комнаты</th>
+            <th>Игра</th>
+            <th>количество игроков в комнате</th>
+            <th>максимальное количество</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each = "lobbies : ${lobbies}">
+            <td>
+                <form th:action="@{/lobbies}" method="get">
+                <input type="submit" value="Играть"/>
+            </form>
+            </td>
+            <td th:text = "${lobbies.getLobbyName()}"></td>
+            <td th:text = "${lobbies.getNameOfTheGame()}"></td>
+            <td th:text = "${lobbies.quantityPlayersNow()}"></td>
+            <td th:text = "${lobbies.maxNumOfPlayers()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

@@ -1,25 +1,25 @@
 package com.example.servingwebcontent.model.games.abstraction;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-/**
- * Класс собирает будующих игроков
- */
+
 public abstract class Lobby implements LobbyService {
 
     @Getter
-    private final String lobbyName;
-    private final Game.NameOfTheGame nameOfTheGame;
+    @Setter
+    private String lobbyName;
+    private final Game.TypeOfTheGame typeOfTheGame;
     private final String[] names;
 
-    public Lobby(int maxNumOfPlayers, String lobbyName, Game.NameOfTheGame nameOfTheGame) {
-        names = new String[maxNumOfPlayers];
+    public Lobby(int maxNumOfPlayers, Game.TypeOfTheGame typeOfTheGame, String lobbyName) {
         this.lobbyName = lobbyName;
-        this.nameOfTheGame = nameOfTheGame;
+        names = new String[maxNumOfPlayers];
+        this.typeOfTheGame = typeOfTheGame;
     }
 
     /**
@@ -54,7 +54,7 @@ public abstract class Lobby implements LobbyService {
         return (int) Arrays.stream(names).filter(Objects::nonNull).count();
     }
     public String getNameOfTheGame(){
-        return nameOfTheGame.name();
+        return typeOfTheGame.name();
     }
 
     private void upChair(String name) {

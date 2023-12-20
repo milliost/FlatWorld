@@ -16,7 +16,6 @@ import org.springframework.web.context.annotation.RequestScope;
 
 @AllArgsConstructor
 @Controller
-@RequestScope
 public class LobbyController {
 
     private LobbyService ls;

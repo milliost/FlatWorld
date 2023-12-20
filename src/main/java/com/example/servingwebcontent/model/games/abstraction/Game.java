@@ -6,9 +6,9 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public abstract class Game {
-    private NameOfTheGame name;
+    private TypeOfTheGame name;
     private Player[] players;
-    public enum NameOfTheGame{
+    public enum TypeOfTheGame{
         FLATWORLD,
         MORE
     }
