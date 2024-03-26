@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.controllers.others;
+package com.example.servingwebcontent.controllers.service;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.controllers.others;
+package com.example.servingwebcontent.controllers.service;
 
 import com.example.servingwebcontent.entity.User;
 import com.example.servingwebcontent.service.UserDTOService;

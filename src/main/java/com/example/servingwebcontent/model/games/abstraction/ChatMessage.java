@@ -21,7 +21,8 @@ public class ChatMessage {
         HISTORY,
         ENDTURN,
         PLAYCARD,
-        CREATE, DISTRICKT
+        CREATE,
+        DISTRICKT
     }
 
 }

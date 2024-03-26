@@ -1,6 +1,5 @@
 package com.example.servingwebcontent.model.games.flatWorld;
 
-import com.example.servingwebcontent.model.games.abstraction.Player;
 import com.example.servingwebcontent.model.games.flatWorld.cards.Card;
 import com.example.servingwebcontent.model.games.flatWorld.entities.playerEntity.House;
 import com.example.servingwebcontent.model.games.flatWorld.heroes.HeroType;
@@ -8,10 +7,13 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Setter;
 
 @Getter
-public class FlatWorldPlayer extends Player {
+@Setter
+public class FlatWorldPlayer {
 
+    private String name;
     private int money =10;
     private HeroType heroType;
     private List<Card> cards= new ArrayList<>();
@@ -20,7 +22,7 @@ public class FlatWorldPlayer extends Player {
     private int slave = 12;
 
     public FlatWorldPlayer(String name, HeroType heroType){
-        super(name);
+        this.name = name;
         this.heroType=heroType;
     }
 

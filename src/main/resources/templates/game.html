@@ -1,61 +1,49 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-
+<html>
 <head>
-    <title>Игра</title>
-    <link rel="stylesheet" th:href="@{/css/game.css}">
-    <link rel="icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Spring Boot WebSocket Chat Application</title>
+    <link rel="stylesheet" href="/css/game.css" />
 </head>
-
 <body>
-    <noscript>
-        <h2>Sorry! Your browser doesn't support Javascript</h2>
-    </noscript>
-
-    <div class="container">
-
-        <div class="map">
-            <p>
-                <img alt="Ой, картинка с картой исчезла" th:src="@{/img/map.jpg}">
-            </p>
-        </div>
-
-        <div class="flatWorldGame">
-            <div>
-                <form>
-                    <input class=cellbut type="button" id="buttonStart" value="start"/>
-                </form>
+<noscript>
+    <h2>Sorry! Your browser doesn't support Javascript</h2>
+</noscript>
+<div id="username-page">
+    <div class="username-page-container">
+        <h1 class="title">Type your username</h1>
+        <form id="usernameForm" name="usernameForm">
+            <div class="form-group">
+                <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
             </div>
-            <div id="table2">
-
+            <div class="form-group">
+                <button type="submit" class="accent username-submit">Start Chatting</button>
             </div>
-
-
-
-
-            <div id="chat-page" class="hidden">
-            <div class="chat-container">
-
-                <div class="chat-header">
-                    <h1>Spring WebSocket Chat Demo</h1>
-                </div>
-
-                <ul id="messageArea">
-                </ul>
-                <form id="messageForm" name="messageForm">
-                    <div class="form-group">
-
-                    </div>
-                </form>
-            </div>
-        </div>
-        </div>
+        </form>
     </div>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script th:src="@{/js/game/game.js}"></script>
-    <script th:src="@{/js/game/table.js}"></script>
+</div>
+<div id="chat-page" class="hidden">
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>Spring WebSocket Chat Demo</h2>
+        </div>
+        <div class="connecting">
+            Connecting...
+        </div>
+        <ul id="messageArea">
+        </ul>
+        <form id="messageForm" name="messageForm">
+            <div class="form-group">
+                <div class="input-group clearfix">
+                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
+                    <button type="submit" class="primary">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/js/game/game.js"></script>
 </body>
 </html>

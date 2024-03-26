@@ -3,7 +3,9 @@ package com.example.servingwebcontent.model.games.flatWorld.cards;
 import io.micrometer.common.lang.Nullable;
 
 import java.util.Random;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Deck {
     private Card[] deck = new Card[101];
     private GreenCard[] green = new GreenCard[48];

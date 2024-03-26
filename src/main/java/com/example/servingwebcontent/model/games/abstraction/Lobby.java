@@ -1,31 +1,17 @@
 package com.example.servingwebcontent.model.games.abstraction;
 
-import lombok.Getter;
-import lombok.Setter;
-
+import com.example.servingwebcontent.model.games.flatWorld.FlatWorldGame;
+import com.example.servingwebcontent.model.games.flatWorld.FlatWorldPlayer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
+@Component
+public class Lobby implements LobbyService {
 
-public abstract class Lobby implements LobbyService {
-
-    @Getter
-    @Setter
-    private String lobbyName;
-    private final Game.TypeOfTheGame typeOfTheGame;
-    private final String[] names;
-
-    public Lobby(int maxNumOfPlayers, Game.TypeOfTheGame typeOfTheGame, String lobbyName) {
-        this.lobbyName = lobbyName;
-        names = new String[maxNumOfPlayers];
-        this.typeOfTheGame = typeOfTheGame;
-    }
-
-    /**
-     * @param numOfChair номер стула
-     * @param name       имя игрока севшего на него
-     */
+    private String[] names = new String[4];
     public void sitOnChair(int numOfChair, String name) {
         upChair(name);
         names[numOfChair] = name;
@@ -35,12 +21,13 @@ public abstract class Lobby implements LobbyService {
         return Arrays.toString(names);
     }
 
-    public Player[] makePlayerArrayForGame() {
+    @Bean
+    public FlatWorldPlayer[] makePlayerArrayForGame() {
         ArrayList<String> nEw = new ArrayList<>(Arrays.asList(names));
         nEw.removeIf(Objects::isNull);
         String[] namesWithoutNull = nEw.stream().toList().toArray(new String[0]);
 
-        Player[] players = new Player[namesWithoutNull.length];
+        FlatWorldPlayer[] players = new FlatWorldPlayer[namesWithoutNull.length];
         for (int i = 0; i < namesWithoutNull.length; i++) {
             players[i].setName(namesWithoutNull[i]);
         }
@@ -52,9 +39,6 @@ public abstract class Lobby implements LobbyService {
     }
     public int quantityPlayersNow(){
         return (int) Arrays.stream(names).filter(Objects::nonNull).count();
-    }
-    public String getNameOfTheGame(){
-        return typeOfTheGame.name();
     }
 
     private void upChair(String name) {
