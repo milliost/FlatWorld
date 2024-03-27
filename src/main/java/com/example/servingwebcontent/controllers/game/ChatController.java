@@ -1,26 +1,23 @@
 package com.example.servingwebcontent.controllers.game;
 
 import com.example.servingwebcontent.model.games.abstraction.ChatMessage;
+import com.example.servingwebcontent.model.games.flatWorld.comandHandler.TextCommandHandler;
+import lombok.AllArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
 @Controller
+@AllArgsConstructor
 public class ChatController {
+
+    private final TextCommandHandler textCommandHandler;
+
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-        return chatMessage;
-    }
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public ChatMessage addUser(@Payload ChatMessage chatMessage,
-        SimpMessageHeaderAccessor headerAccessor) {
-        // Add username in web socket session
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
-        return chatMessage;
+    public void sendMessage(@Payload ChatMessage chatMessage) {
+        textCommandHandler.acceptCommand(chatMessage);
     }
 }
 

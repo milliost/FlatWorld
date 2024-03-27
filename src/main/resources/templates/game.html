@@ -9,23 +9,13 @@
 <noscript>
     <h2>Sorry! Your browser doesn't support Javascript</h2>
 </noscript>
-<div id="username-page">
-    <div class="username-page-container">
-        <h1 class="title">Type your username</h1>
-        <form id="usernameForm" name="usernameForm">
-            <div class="form-group">
-                <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
-            </div>
-            <div class="form-group">
-                <button type="submit" class="accent username-submit">Start Chatting</button>
-            </div>
-        </form>
-    </div>
-</div>
+
+<div id="table" class="table"></div>
+
 <div id="chat-page" class="hidden">
     <div class="chat-container">
         <div class="chat-header">
-            <h2>Spring WebSocket Chat Demo</h2>
+            <h2>Чат</h2>
         </div>
         <div class="connecting">
             Connecting...
@@ -45,5 +35,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="/js/game/game.js"></script>
+<script src="/js/game/table.js"></script>
 </body>
 </html>

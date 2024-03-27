@@ -10,12 +10,16 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Component;
 
 @Component
-@AllArgsConstructor
 public class TextCommandHandler {
 
     private SimpMessageSendingOperations messagingTemplate;
     private FlatWorldGame flatWorldGame;
     private LobbyService ls;
+
+    public TextCommandHandler(SimpMessageSendingOperations messagingTemplate, LobbyService ls) {
+        this.messagingTemplate = messagingTemplate;
+        this.ls = ls;
+    }
 
     public void acceptCommand(ChatMessage chatMessage) {
         switch (chatMessage.getType()){
