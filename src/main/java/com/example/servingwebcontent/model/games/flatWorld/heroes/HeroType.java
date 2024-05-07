@@ -1,10 +1,7 @@
 package com.example.servingwebcontent.model.games.flatWorld.heroes;
 
-import com.example.servingwebcontent.model.games.flatWorld.FlatWorldPlayer;
+import com.example.servingwebcontent.model.games.flatWorld.player.FlatWorldPlayer;
 import lombok.Getter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 public enum HeroType implements winer{
@@ -42,17 +39,6 @@ public enum HeroType implements winer{
              }
          }
          return false;
-    }
-    public static List<HeroType> getListOfHeroes(){
-         List<HeroType> heroTypeList = new ArrayList<>();
-        heroTypeList.add(HeroType.CHRYSOPRASE);
-        heroTypeList.add(HeroType.DRAGON);
-        heroTypeList.add(HeroType.LORD_DE_WORDE);
-        heroTypeList.add(HeroType.LORD_RUST);
-        heroTypeList.add(HeroType.LORD_SELACHII);
-        heroTypeList.add(HeroType.VETINARI);
-        heroTypeList.add(HeroType.VIMES);
-        return heroTypeList;
     }
 }
 

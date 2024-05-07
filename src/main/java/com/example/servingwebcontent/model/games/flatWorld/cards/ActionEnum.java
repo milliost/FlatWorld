@@ -1,5 +1,6 @@
 package com.example.servingwebcontent.model.games.flatWorld.cards;
-public enum CardActions {
+
+public enum ActionEnum {
     SERVITOR,
     HOME,
     MONEY,
@@ -7,5 +8,9 @@ public enum CardActions {
     CATACLYSME,
     NEXTCARD,
     PROPERTY,
-    POLICE
+    POLICE,
+    DROP,
+    PLAYCARD,
+  ENDTURN, HAND
+
 }

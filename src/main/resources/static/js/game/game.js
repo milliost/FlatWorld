@@ -42,7 +42,7 @@ function onError(error) {
     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
     connectingElement.style.color = 'red';
 }
-function sendMessage(event) {
+function sendMessage(event,content) {
     var messageContent = messageInput.value.trim();
     if(messageContent && stompClient) {
         var chatMessage = {
@@ -97,3 +97,46 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 messageForm.addEventListener('submit', sendMessage, true)
+
+function dice() {
+
+    if(stompClient) {
+        var chatMessage = {
+            sender: username,
+            content: "sas",
+            type: 'DICE'
+        };
+        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        messageInput.value = '';
+    }
+}
+function startGame() {
+
+    if(stompClient) {
+        var chatMessage = {
+            sender: username,
+            content: "Начал игру",
+            type: 'START'
+        };
+        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        messageInput.value = '';
+    }
+}
+
+function endTurn() {
+    makeMessageAndSend("endTurn",'ENDTURN')
+}
+function playCard() {
+    makeMessageAndSend("1",'PLAYCARD')
+}
+function makeMessageAndSend(content,type) {
+    if(stompClient) {
+        var chatMessage = {
+            sender: username,
+            content: content,
+            type: type
+        };
+        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        messageInput.value = '';
+    }
+}

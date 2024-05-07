@@ -1,9 +1,14 @@
 package com.example.servingwebcontent.model.games.flatWorld;
 
+import com.example.servingwebcontent.model.games.flatWorld.cards.ActionEnum;
 import com.example.servingwebcontent.model.games.flatWorld.cards.Deck;
 import com.example.servingwebcontent.model.games.flatWorld.entities.Entity;
-import com.example.servingwebcontent.model.games.flatWorld.flatWorldService.CanPlayerDoAction;
+import com.example.servingwebcontent.model.games.flatWorld.heroes.HeroService;
 import com.example.servingwebcontent.model.games.flatWorld.heroes.HeroType;
+import com.example.servingwebcontent.model.games.flatWorld.map.MapService;
+import com.example.servingwebcontent.model.games.flatWorld.player.FlatWorldPlayer;
+import com.example.servingwebcontent.model.games.flatWorld.player.PlayerService;
+import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,51 +19,47 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 @Setter
-public class FlatWorldGame {
+public class FlatWorldGame implements PlayerService {
 
-  private final static long id = 0;
   private FlatWorldPlayer[] players;
   private List<HeroType> heroesPool;
-  private List<Entity> demonsAndOgres;
   private Deck deck;
-  private CanPlayerDoAction canPlayerDoAction;
+  private Logger logger = LoggerFactory.getLogger(FlatWorldGame.class);
+  private HeroService heroService;
+
+
+  public FlatWorldGame(List<HeroType> heroesPool, List<Entity> demonsAndOgres, Deck deck,
+      HeroService heroService) {
+    this.heroesPool = heroesPool;
+    this.deck = deck;
+    this.heroService = heroService;
+  }
+
+
+  public FlatWorldPlayer findPlayer(String string) {
+    logger.info(Arrays.toString(players));
+    for (FlatWorldPlayer player : players) {
+      if (player.getName().equals(string)) {
+        logger.info(player.getName());
+        return player;
+      }
+    }
+    return null;
+  }
 
   public void start(FlatWorldPlayer[] players) {
     for (FlatWorldPlayer player : players) {
-      player.setHeroType(getRandomHero(players.length, heroesPool));
-
-      while (player.quantityCard() < 5) {
-        player.addCard(deck.takeCard());
-      }
-
+      player.setHeroType(heroService.getRandomHero(heroesPool, players.length));
+        deck.getCardsUpToPlayerMax(player);
     }
-    canPlayerDoAction.start(players, players[0]);
+    this.players = players;
+    this.players[0].addWhatCanPlayerDo(ActionEnum.PLAYCARD);
+    logger.info(Arrays.toString(this.players));
+    logger.info("Игра начата");
   }
 
-  private HeroType getRandomHero(int numberOfPlayers, List<HeroType> heroesPool) {
-    switch (numberOfPlayers) {
-      case 2 -> {
-        heroesPool.remove(HeroType.CHRYSOPRASE);
-        heroesPool.remove(HeroType.LORD_RUST);
-        int random = (int) (Math.random() * heroesPool.size());
-        HeroType returnedHero = heroesPool.get(random);
-        heroesPool.remove(returnedHero);
-        return returnedHero;
-      }
-      case 3 -> {
-        heroesPool.remove(HeroType.LORD_RUST);
-        int random = (int) (Math.random() * heroesPool.size());
-        HeroType returnedHero = heroesPool.get(random);
-        heroesPool.remove(returnedHero);
-        return returnedHero;
-      }
-      case 4 -> {
-        int random = (int) (Math.random() * heroesPool.size());
-        HeroType returnedHero = heroesPool.get(random);
-        heroesPool.remove(returnedHero);
-        return returnedHero;
-      }
-    }
-    return HeroType.CHRYSOPRASE;
+  @Override
+  public FlatWorldPlayer getPlayerByName(String name) {
+    return findPlayer(name);
   }
 }

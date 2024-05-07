@@ -27,3 +27,19 @@ table, td {
 table {
   width: 100%;
 }
+datalist {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  writing-mode: vertical-lr;
+  width: 400px;
+}
+option {
+  padding: 0;
+}
+
+input[type="range"] {
+  width: 400px;
+  margin: 0;
+}
+

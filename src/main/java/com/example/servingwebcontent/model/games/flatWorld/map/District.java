@@ -1,21 +1,24 @@
 package com.example.servingwebcontent.model.games.flatWorld.map;
 
-import com.example.servingwebcontent.model.games.flatWorld.FlatWorldPlayer;
+import com.example.servingwebcontent.model.games.flatWorld.entities.playerEntity.House;
+import com.example.servingwebcontent.model.games.flatWorld.player.FlatWorldPlayer;
 import com.example.servingwebcontent.model.games.flatWorld.cards.Card;
 import com.example.servingwebcontent.model.games.flatWorld.entities.Entity;
+import com.example.servingwebcontent.model.games.flatWorld.entities.EntityType;
 import com.example.servingwebcontent.model.games.flatWorld.entities.evilEntity.Demon;
 
+import com.example.servingwebcontent.model.games.flatWorld.entities.playerEntity.Slave;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class District{
-    String name;
-    int number;
-    int housePrice;
-    boolean conflict;
-    int[] numbersOfNeighboringDistricts;
-    FlatWorldPlayer ownerOfHouse;
-    List<Entity> entities= new ArrayList<Entity>();
+    private String name;
+    private int number;
+    private int housePrice;
+    private boolean conflict;
+    private int[] numbersOfNeighboringDistricts;
+    private FlatWorldPlayer ownerOfHouse;
+    private List<Entity> entities= new ArrayList<>();
 
     public District(String name, int number, int housePrice, boolean conflict, int... numbersOfNeighboringDistricts){
         this.name=name;
@@ -35,7 +38,7 @@ public abstract class District{
         if(!conflict && buyer.getMoney() >= housePrice && buyer.getHouse() > 0){
             buyer.writeOffFunds(housePrice);
             ownerOfHouse = buyer;
-            entities.add(buyer.getObjHouse());
+            entities.add(new House(ownerOfHouse));
             return true;
         }else{ 
             return false;
@@ -61,5 +64,17 @@ public abstract class District{
         entities.add(entity);
     }
     public abstract void effect();
+    public void kill(FlatWorldPlayer player){
+        for (Entity slave: entities){
+            if(slave.getEntityType()== EntityType.SLAVE){
+                Slave newSlave = (Slave) slave;
+                if (newSlave.getOwner()==player){
+                    entities.remove(slave);
+                    break;
+                }
+            }
+        }
+
+    }
 }
         
