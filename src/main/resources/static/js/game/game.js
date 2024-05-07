@@ -104,7 +104,8 @@ function dice() {
         var chatMessage = {
             sender: username,
             content: "sas",
-            type: 'DICE'
+            type: 'INSTRUCTION',
+            actionEnum: 'DICE',
         };
         stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';

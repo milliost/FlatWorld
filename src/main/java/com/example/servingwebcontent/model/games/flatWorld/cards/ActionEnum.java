@@ -11,6 +11,8 @@ public enum ActionEnum {
     POLICE,
     DROP,
     PLAYCARD,
-  ENDTURN, HAND
+    ENDTURN,
+    HAND,
+    DICE
 
 }

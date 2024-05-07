@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.model.games.flatWorld.services;
+package com.example.servingwebcontent.model.games.flatWorld.player;
 
 import com.example.servingwebcontent.model.games.flatWorld.player.FlatWorldPlayer;
 

@@ -1,6 +1,8 @@
 package com.example.servingwebcontent.model.games.abstraction;
 
+import com.example.servingwebcontent.model.games.Instruction;
 import com.example.servingwebcontent.model.games.flatWorld.FlatWorldGame;
+import com.example.servingwebcontent.model.games.flatWorld.cards.ActionEnum;
 import lombok.AllArgsConstructor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Component;
@@ -28,7 +30,11 @@ public class LobbyTextCommandHandler {
         cm.setContent(cm.getContent() + " начал игру");
         messagingTemplate.convertAndSend(("/topic/public"), cm);
       }
-      case INSTRUCTION -> gameTextInstructionHandler.acceptInstruction(cm.getInstruction());
+      case INSTRUCTION -> gameTextInstructionHandler.acceptInstruction(
+          new Instruction(
+              ActionEnum.valueOf(cm.getActionEnum()),
+              cm.getParameter(),
+              flatWorldGame.findPlayer(cm.getInstructionPlayer())));
     }
   }
 }

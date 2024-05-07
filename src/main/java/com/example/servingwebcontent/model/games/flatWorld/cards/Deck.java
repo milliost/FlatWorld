@@ -1,5 +1,6 @@
 package com.example.servingwebcontent.model.games.flatWorld.cards;
 
+import static com.example.servingwebcontent.model.games.flatWorld.cards.ActionEnum.HOME;
 import static com.example.servingwebcontent.model.games.flatWorld.cards.ActionEnum.KILL;
 import static com.example.servingwebcontent.model.games.flatWorld.cards.ActionEnum.MONEY;
 import static com.example.servingwebcontent.model.games.flatWorld.cards.ActionEnum.NEXTCARD;
@@ -8,33 +9,37 @@ import static com.example.servingwebcontent.model.games.flatWorld.cards.ActionEn
 import static com.example.servingwebcontent.model.games.flatWorld.cards.ActionEnum.SERVITOR;
 
 import com.example.servingwebcontent.model.games.flatWorld.player.FlatWorldPlayer;
+import java.util.Arrays;
 import java.util.Random;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Deck implements DeckService {
 
-  private Card[] deck = new Card[101];
-  private GreenCard[] green = new GreenCard[48];
-  private BrownCard[] brown = new BrownCard[53];
+  private Card[] deck = new Card[13];
+  private GreenCard[] green = new GreenCard[11];
+  private BrownCard[] brown = new BrownCard[2];
 
+  private Logger logger = LoggerFactory.getLogger(Deck.class);
   private Cataclysme cataclysme;
 
   public Deck() {
     makeGreenCards();
+    makeBrownCards();
     shuffle(green);
     shuffle(brown);
     System.arraycopy(green, 0, deck, 0, green.length);
     System.arraycopy(brown, 0, deck, green.length, brown.length);
+    logger.info(toString());
   }
 
   @Override
   public void getCardsUpToPlayerMax(FlatWorldPlayer player) {
-    if (player.getCards().size() < player.getMaxCard()) {
-      for (int i = 0; i < (player.getMaxCard() - player.getCards().size()); i++) {
-        player.addCard(takeFirstNotNullCardFromDeck());
-      }
-
+    while (player.getMaxCard()!=player.getCards().size()){
+      player.addCard(takeFirstNotNullCardFromDeck());
     }
   }
 
@@ -46,7 +51,7 @@ public class Deck implements DeckService {
         return temp;
       }
     }
-    return null;
+    return new GreenCard("этой краты не должно быть",0,MONEY);
   }
 
   private void makeGreenCards() {
@@ -62,6 +67,10 @@ public class Deck implements DeckService {
     green[9] = new GreenCard("Клуб Розовая кошечка", 3, MONEY, NEXTCARD);
     green[10] = new GreenCard("Доктор Белолицый", PROPERTY, SERVITOR);
 
+  }
+  private void makeBrownCards(){
+    brown[0] = new BrownCard("Привет", KILL,KILL, HOME);
+    brown[1] = new BrownCard("Сержант Детрид",POLICE,POLICE);
   }
 
   private void shuffle(Card[] cards) {
@@ -79,4 +88,16 @@ public class Deck implements DeckService {
     return cataclysme.getName();
   }
 
+  @Override
+  @Lookup
+  public Deck getDeck() {
+    return null;
+  }
+
+  @Override
+  public String toString() {
+    return "Deck{" +
+        "deck=" + Arrays.toString(deck) +
+        '}';
+  }
 }

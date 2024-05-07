@@ -1,6 +1,5 @@
 package com.example.servingwebcontent.model.games.flatWorld.cards;
 
-import com.example.servingwebcontent.model.games.Instruction;
 import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
@@ -9,6 +8,7 @@ import lombok.Getter;
 @Getter
 public abstract class Card{
     private String name;
+    private int money;
     private ActionEnum first;
     private ActionEnum second;
     private ActionEnum third;
@@ -25,13 +25,11 @@ public abstract class Card{
             case 1 -> first = actionEnum[0];
         }
     }
-
-    public Card(String name, String name1, int money, ActionEnum... actionEnum) {
-        this(name, actionEnum);
+    public Card(String name, int money, ActionEnum... actionEnum) {
+      this(name, actionEnum);
+      this.money = money;
     }
 
-  public Card(String name, int money, ActionEnum[] actionEnums) {
-  }
 
   public List<ActionEnum> returnActions() {
     ActionEnum[] actionEnum = new ActionEnum[5];

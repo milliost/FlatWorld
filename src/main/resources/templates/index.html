@@ -8,19 +8,19 @@
 <body>
 <h1 th:inline="text">Hello, <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>
 
-<form th:Instruction="@{/login}" method="post">
+<form th:action="@{/login}" method="post">
     <input type="submit" value="Войти в аккаунт"/>
 </form>
 
-<form th:Instruction="@{/logout}" method="post">
+<form th:action="@{/logout}" method="post">
     <input type="submit" value="Выйти из аккаунта"/>
 </form>
 
-<form th:Instruction="@{/game}" method="get">
+<form th:action="@{/game}" method="get">
     <input type="submit" value="Играть"/>
 </form>
 
-<form th:Instruction="@{/users}" method="get">
+<form th:action="@{/users}" method="get">
     <input type="submit" value="Посмотреть достижения игроков"/>
 </form>
 

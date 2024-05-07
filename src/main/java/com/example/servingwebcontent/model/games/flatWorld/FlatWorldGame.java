@@ -2,6 +2,7 @@ package com.example.servingwebcontent.model.games.flatWorld;
 
 import com.example.servingwebcontent.model.games.flatWorld.cards.ActionEnum;
 import com.example.servingwebcontent.model.games.flatWorld.cards.Deck;
+import com.example.servingwebcontent.model.games.flatWorld.cards.DeckService;
 import com.example.servingwebcontent.model.games.flatWorld.entities.Entity;
 import com.example.servingwebcontent.model.games.flatWorld.heroes.HeroService;
 import com.example.servingwebcontent.model.games.flatWorld.heroes.HeroType;
@@ -23,16 +24,16 @@ public class FlatWorldGame implements PlayerService {
 
   private FlatWorldPlayer[] players;
   private List<HeroType> heroesPool;
-  private Deck deck;
+  private DeckService deckService;
   private Logger logger = LoggerFactory.getLogger(FlatWorldGame.class);
   private HeroService heroService;
 
 
-  public FlatWorldGame(List<HeroType> heroesPool, List<Entity> demonsAndOgres, Deck deck,
-      HeroService heroService) {
+  public FlatWorldGame(List<HeroType> heroesPool,
+      HeroService heroService, DeckService deckService) {
     this.heroesPool = heroesPool;
-    this.deck = deck;
     this.heroService = heroService;
+    this.deckService = deckService;
   }
 
 
@@ -50,7 +51,7 @@ public class FlatWorldGame implements PlayerService {
   public void start(FlatWorldPlayer[] players) {
     for (FlatWorldPlayer player : players) {
       player.setHeroType(heroService.getRandomHero(heroesPool, players.length));
-        deck.getCardsUpToPlayerMax(player);
+        deckService.getCardsUpToPlayerMax(player);
     }
     this.players = players;
     this.players[0].addWhatCanPlayerDo(ActionEnum.PLAYCARD);

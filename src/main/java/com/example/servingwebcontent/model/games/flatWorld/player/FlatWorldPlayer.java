@@ -1,5 +1,6 @@
 package com.example.servingwebcontent.model.games.flatWorld.player;
 
+import com.example.servingwebcontent.model.games.flatWorld.FlatWorldGame;
 import com.example.servingwebcontent.model.games.flatWorld.cards.ActionEnum;
 import com.example.servingwebcontent.model.games.flatWorld.cards.Card;
 import com.example.servingwebcontent.model.games.flatWorld.heroes.HeroType;
@@ -9,6 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -29,6 +32,8 @@ public class FlatWorldPlayer implements PlayerEndTurnService {
   private int slave = 12;
   private List<ActionEnum> whatCanPlayerDo = new ArrayList<>();
 
+  private Logger logger = LoggerFactory.getLogger(FlatWorldPlayer.class);
+
   public void transferFunds(int money) {
     this.money = this.money + money;
   }
@@ -42,6 +47,7 @@ public class FlatWorldPlayer implements PlayerEndTurnService {
   }
 
   public void addCard(Card card) {
+    logger.info(name + " получил " + card.getName());
     cards.add(card);
   }
 
@@ -72,5 +78,20 @@ public class FlatWorldPlayer implements PlayerEndTurnService {
   @Override
   public void addPlayCardAction() {
     whatCanPlayerDo.add(ActionEnum.PLAYCARD);
+  }
+
+  @Override
+  public String toString() {
+    return "FlatWorldPlayer{" +
+        "name='" + name + '\'' +
+        ", money=" + money +
+        ", maxCard=" + maxCard +
+        ", heroType=" + heroType +
+        ", cards=" + cards +
+        ", debuffs='" + debuffs + '\'' +
+        ", house=" + house +
+        ", slave=" + slave +
+        ", whatCanPlayerDo=" + whatCanPlayerDo +
+        '}';
   }
 }

@@ -1,7 +1,7 @@
 package com.example.servingwebcontent.model.games.abstraction;
 
 import com.example.servingwebcontent.model.games.flatWorld.player.FlatWorldPlayer;
-import com.example.servingwebcontent.model.games.flatWorld.services.FlatWorldPlayersService;
+import com.example.servingwebcontent.model.games.flatWorld.player.FlatWorldPlayersService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
