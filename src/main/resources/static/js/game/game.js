@@ -1,4 +1,5 @@
 'use strict';
+
 var chatPage = document.querySelector('#chat-page');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
@@ -67,8 +68,13 @@ function onMessageReceived(payload) {
     } else if (message.type === 'SIT') {
         messageElement.classList.add('event-message');
         var chair = message.content;
-        message.content = message.sender + ' занял '+ chair + ' место';
+        message.content = message.sender + ' занял ' + chair + ' место';
         document.getElementById(chair).value = message.sender
+    }else if (message.type === 'HISTORY') {
+        messageElement.classList.add('chat-message');
+        var player = JSON.parse(message.content)
+        alert(player)
+        writeTD(1,2,player.turn)
     } else {
         messageElement.classList.add('chat-message');
         var avatarElement = document.createElement('i');
@@ -125,17 +131,32 @@ function startGame() {
 }
 
 function endTurn() {
-    makeMessageAndSend("endTurn",'ENDTURN')
+    makeMessageAndSend4("окончил ход",'ENDTURN',0,username)
 }
-function playCard() {
-    makeMessageAndSend("1",'PLAYCARD')
+function playCard(numOfCard) {
+    makeMessageAndSend4("сыграл",'INSTRUCTION',numOfCard,username)
 }
-function makeMessageAndSend(content,type) {
+function makeMessageAndSend2(content,type) {
     if(stompClient) {
         var chatMessage = {
             sender: username,
             content: content,
             type: type
+        };
+        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        messageInput.value = '';
+    }
+}
+function makeMessageAndSend4(content,INSTRUCTION, parameter, instructionPlayer) {
+    if(stompClient) {
+        var chatMessage = {
+            sender: username,
+            content: content,
+            type: 'INSTRUCTION',
+            actionEnum: INSTRUCTION,
+            parameter: parameter,
+            instructionPlayer: instructionPlayer
+
         };
         stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';

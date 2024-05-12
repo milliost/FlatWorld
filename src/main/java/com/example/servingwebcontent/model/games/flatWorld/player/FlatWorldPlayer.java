@@ -1,10 +1,9 @@
 package com.example.servingwebcontent.model.games.flatWorld.player;
 
-import com.example.servingwebcontent.model.games.flatWorld.FlatWorldGame;
 import com.example.servingwebcontent.model.games.flatWorld.cards.ActionEnum;
 import com.example.servingwebcontent.model.games.flatWorld.cards.Card;
 import com.example.servingwebcontent.model.games.flatWorld.heroes.HeroType;
-import com.example.servingwebcontent.model.games.flatWorld.player.PlayerEndTurnService;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +19,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@JsonAutoDetect
 public class FlatWorldPlayer implements PlayerEndTurnService {
 
   private String name;
@@ -31,8 +31,7 @@ public class FlatWorldPlayer implements PlayerEndTurnService {
   private int house = 6;
   private int slave = 12;
   private List<ActionEnum> whatCanPlayerDo = new ArrayList<>();
-
-  private Logger logger = LoggerFactory.getLogger(FlatWorldPlayer.class);
+  private boolean turn = false;
 
   public void transferFunds(int money) {
     this.money = this.money + money;
@@ -47,7 +46,6 @@ public class FlatWorldPlayer implements PlayerEndTurnService {
   }
 
   public void addCard(Card card) {
-    logger.info(name + " получил " + card.getName());
     cards.add(card);
   }
 
@@ -82,16 +80,15 @@ public class FlatWorldPlayer implements PlayerEndTurnService {
 
   @Override
   public String toString() {
-    return "FlatWorldPlayer{" +
-        "name='" + name + '\'' +
-        ", money=" + money +
-        ", maxCard=" + maxCard +
-        ", heroType=" + heroType +
-        ", cards=" + cards +
-        ", debuffs='" + debuffs + '\'' +
-        ", house=" + house +
-        ", slave=" + slave +
-        ", whatCanPlayerDo=" + whatCanPlayerDo +
-        '}';
+    return
+        "{"+
+        '"'+"name"+'"'  +":"+  '"'+name+'"'+  ","+
+        '"'+"money"+'"'  +":"+  +money+ ","+
+        '"'+"cards"+'"'  +":"   +cards.size()+","+
+        '"'+"debuffs"+'"'  +":"+  '"'+debuffs+'"'+","+
+        '"'+"house"+'"'  +":"   +house+","+
+        '"'+"slave"+'"'  +":" + slave +","+
+        '"'+"turn"+'"'  +":"+  '"'+turn+'"'+","+
+        "}";
   }
 }

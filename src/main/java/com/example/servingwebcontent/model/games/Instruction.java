@@ -14,6 +14,7 @@ public class Instruction {
   private int parameter;
   private FlatWorldPlayer player;
 
+
   public Instruction(ActionEnum actionEnum) {
     this.actionEnum = actionEnum;
   }

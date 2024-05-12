@@ -3,20 +3,36 @@ package com.example.servingwebcontent.model.games.abstraction;
 import com.example.servingwebcontent.model.games.Instruction;
 import com.example.servingwebcontent.model.games.flatWorld.FlatWorldGame;
 import com.example.servingwebcontent.model.games.flatWorld.cards.ActionEnum;
+import java.io.IOException;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Component;
 
 @Component
-@AllArgsConstructor
 public class LobbyTextCommandHandler {
 
   private SimpMessageSendingOperations messagingTemplate;
   private FlatWorldGame flatWorldGame;
   private LobbyService ls;
   private GameTextInstructionHandler gameTextInstructionHandler;
+  private Logger logger;
 
-  public void acceptCommand(ChatMessage cm) {
+  public LobbyTextCommandHandler(SimpMessageSendingOperations messagingTemplate,
+      FlatWorldGame flatWorldGame, LobbyService ls,
+      GameTextInstructionHandler gameTextInstructionHandler) {
+    this.messagingTemplate = messagingTemplate;
+    this.flatWorldGame = flatWorldGame;
+    this.ls = ls;
+    this.gameTextInstructionHandler = gameTextInstructionHandler;
+    this.logger = LoggerFactory.getLogger(LobbyTextCommandHandler.class);
+  }
+
+  public void acceptCommand(ChatMessage cm){
+
+    logger.info(String.valueOf(cm));
+
     switch (cm.getType()) {
       case CHAT, JOIN, LEAVE -> messagingTemplate.convertAndSend(("/topic/public"), cm);
       case SIT -> {
@@ -35,6 +51,7 @@ public class LobbyTextCommandHandler {
               ActionEnum.valueOf(cm.getActionEnum()),
               cm.getParameter(),
               flatWorldGame.findPlayer(cm.getInstructionPlayer())));
+
     }
   }
 }
