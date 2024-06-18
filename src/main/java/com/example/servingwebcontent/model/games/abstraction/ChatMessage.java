@@ -35,7 +35,8 @@ public class ChatMessage {
         START,
         LEAVE,
         INSTRUCTION,
-        HISTORY
+        HISTORY,
+        LOBBY
     }
 
     @Override

@@ -9,8 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -61,16 +59,19 @@ public class FlatWorldPlayer implements PlayerEndTurnService {
     return cards.toString();
   }
 
-  public void addWhatCanPlayerDo(ActionEnum actionEnum){
+  public void addWhatCanPlayerDo(ActionEnum actionEnum) {
     whatCanPlayerDo.add(actionEnum);
+    if(actionEnum==ActionEnum.PLAYCARD) turn=true;
   }
-  public void playCard(int index){
+
+  public void playCard(int index) {
     whatCanPlayerDo.addAll(cards.get(index).returnActions());
   }
 
   @Override
   public void setWhatCanPlayerDoToNothing() {
-        whatCanPlayerDo.removeIf(actionEnum -> actionEnum != ActionEnum.HAND);
+    whatCanPlayerDo.removeIf(actionEnum -> actionEnum != ActionEnum.HAND);
+    turn = false;
   }
 
   @Override
@@ -81,14 +82,14 @@ public class FlatWorldPlayer implements PlayerEndTurnService {
   @Override
   public String toString() {
     return
-        "{"+
-        '"'+"name"+'"'  +":"+  '"'+name+'"'+  ","+
-        '"'+"money"+'"'  +":"+  +money+ ","+
-        '"'+"cards"+'"'  +":"   +cards.size()+","+
-        '"'+"debuffs"+'"'  +":"+  '"'+debuffs+'"'+","+
-        '"'+"house"+'"'  +":"   +house+","+
-        '"'+"slave"+'"'  +":" + slave +","+
-        '"'+"turn"+'"'  +":"+  '"'+turn+'"'+","+
-        "}";
+        "{" +
+            '"' + "name" + '"' + ":" + '"' + name + '"' + "," +
+            '"' + "turn" + '"' + ":" + '"' + turn + '"' + "," +
+            '"' + "cards" + '"' + ":" + cards.size() + "," +
+            '"' + "money" + '"' + ":" + +money + "," +
+            '"' + "slave" + '"' + ":" + slave + "," +
+            '"' + "house" + '"' + ":" + house + "," +
+            '"' + "debuffs" + '"' + ":" + '"' + debuffs + '"' +
+            "}";
   }
 }

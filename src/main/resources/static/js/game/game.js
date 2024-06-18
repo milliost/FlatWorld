@@ -1,13 +1,13 @@
 'use strict';
 
-var chatPage = document.querySelector('#chat-page');
-var messageForm = document.querySelector('#messageForm');
-var messageInput = document.querySelector('#message');
-var messageArea = document.querySelector('#messageArea');
-var connectingElement = document.querySelector('.connecting');
-var stompClient = null;
-var username = null;
-var colors = [
+let chatPage = document.querySelector('#chat-page');
+let messageForm = document.querySelector('#messageForm');
+let messageInput = document.querySelector('#message');
+let messageArea = document.querySelector('#messageArea');
+let connectingElement = document.querySelector('.connecting');
+let stompClient = null;
+let username = null;
+let colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
@@ -36,6 +36,10 @@ function onConnected() {
     stompClient.send("/app/chat.sendMessage",
         {},
         JSON.stringify({sender: username, type: 'JOIN'})
+    )
+    stompClient.send("/app/chat.sendMessage",
+        {},
+        JSON.stringify({sender: username, type: 'LOBBY'})
     )
     connectingElement.style.display = "none"
 }
@@ -70,11 +74,20 @@ function onMessageReceived(payload) {
         var chair = message.content;
         message.content = message.sender + ' занял ' + chair + ' место';
         document.getElementById(chair).value = message.sender
+    } else if (message.type === 'LOBBY') {
+        messageElement.classList.add('event-message');
+        let content = message.content.replace('[','').replace(']','');
+        let names = content.split(",");
+
+        let buttom = document.querySelectorAll('button')
+        alert(buttom[1].value)
     }else if (message.type === 'HISTORY') {
         messageElement.classList.add('chat-message');
-        var player = JSON.parse(message.content)
-        alert(player)
-        writeTD(1,2,player.turn)
+
+        let players = JSON.parse(message.content);
+        alert(players[0].name);
+        
+
     } else {
         messageElement.classList.add('chat-message');
         var avatarElement = document.createElement('i');

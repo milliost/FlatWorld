@@ -46,6 +46,11 @@ public class LobbyTextCommandHandler {
         cm.setContent(cm.getContent() + " начал игру");
         messagingTemplate.convertAndSend(("/topic/public"), cm);
       }
+      case LOBBY -> {
+        cm.setContent(ls.toString());
+        messagingTemplate.convertAndSend(("/topic/public"), cm);
+        logger.info(ls.toString());
+      }
       case INSTRUCTION -> gameTextInstructionHandler.acceptInstruction(
           new Instruction(
               ActionEnum.valueOf(cm.getActionEnum()),
